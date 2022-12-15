@@ -19,46 +19,63 @@ def add_recipe(input, output):
 
 def add_custom_recipe():
     for i in range(1,5):
-        recipe_list.update({str(i) + "X" : (str(i) + str(i) + str(i),"X")})
+        recipe_list.update({str(i) + str(i) + str(i) : "X"})
+
+#if the recipe works, return the new string
+def check_recipe(test_str, input, output):
+    x = test_str
+    for index, char in enumerate(input):
+        if char in x:
+            x = x.replace(char, "",1)
+        else:
+            return 0
+    x = x + output
+    return "".join(sorted(x))
+
+def contains(test_current):
+    for index, char in enumerate(test_current):
+        if char in target_candy:
+            test_current = test_current.replace(char, "",1)
+        else:
+            return False
+    return True
 
 # args[0] = visited list of parent
-# args[1] = recipe key
-# args[2] = current candy string
-def mainloop(*args):
-    this_candy_iteration = str(args[2])
+# args[1] = this candy string
+def recurse(*args):
+    pathway = args[0]
+    this_candy_iteration = str(args[1])
+
+
     if(this_candy_iteration == target_candy):
         return pathway
 
-    visited = []
     if len(args[0]) > 5:
-        return -1
-    
-    if args[0] == -1:
-        return -1
+        return "5 recipes deep"
 
-    for key, value in recipe_list.keys:
-        #check if recipe works
-        #this doesn't work: nature of 'in'
-        if value[0] in this_candy_iteration:
-            visited.append(value[0])
-            this_candy_iteration.replace(value[0], value[1])
-            this_candy_iteration = sorted(this_candy_iteration)
-            return mainloop(visited, value[0], this_candy_iteration)
+    for key, value in recipe_list.items():
+        recipe = key
+        new_candy_iteration = str(check_recipe(str(this_candy_iteration), key, value))
+        #check if recipe works, if it doesn't, move on
+        if new_candy_iteration == "0":
+            continue
 
+        #only continues loop if recipe worked
+        pathway.append(recipe)
+        return recurse(pathway, str(new_candy_iteration))
 
-
-    return -1
+    return pathway
 
 def main():
 #    add_custom_recipe()
-    recipe_list.update({"1" : ("12" , "3333")})
-    recipe_list.update({"2" : ("23" , "45")})
-    recipe_list.update({"3" : ("114", "5555")})
-    recipe_list.update({"4" : ("14" ," 55")})
+    recipe_list.update({"233" : "1115"})
+    recipe_list.update({"1223" : "4444"})
+    recipe_list.update({"225": "334"})
+    recipe_list.update({"155" :"2224"})
     
     visitedarr = []
-    init_recipe = -1
-    print(mainloop(visitedarr, init_recipe, current_candy))    
+    path = recurse(visitedarr, current_candy)
+    print(path)    
     return 1
 
 
