@@ -9,6 +9,7 @@
 
 candy_types = (1,2,3,4,5)
 recipe_list = {}
+visited_states = {}
 current_candy = "11222222233334444"
 target_candy =  "1111122223333444"
 pathway = ""
@@ -32,25 +33,33 @@ def check_recipe(test_str, input, output):
     x = x + output
     return "".join(sorted(x))
 
-def contains(test_current):
-    for index, char in enumerate(test_current):
-        if char in target_candy:
-            test_current = test_current.replace(char, "",1)
+def holds_target_candy(test_current):
+    x = test_current
+    for index, char in enumerate(target_candy):
+        if char in x:
+            x = x.replace(char, "",1)
         else:
             return False
     return True
 
-# args[0] = visited list of parent
-# args[1] = this candy string
-def recurse(*args):
-    pathway = args[0]
-    this_candy_iteration = str(args[1])
+# pathway: list
+# this_candy_iteration is a string
 
+# I NEED TO FIGURE OUT WHAT TO RETURN TO BACKTRACK
+# return pathway
 
-    if(this_candy_iteration == target_candy):
+def recurse(pathway, this_candy_iteration):
+
+    if(holds_target_candy(this_candy_iteration)):
         return pathway
 
-    if len(args[0]) > 5:
+    if this_candy_iteration in visited_states.keys():    
+        return #backtrack code
+
+    visited_states.update({this_candy_iteration : True})
+
+
+    if len(pathway) > 8:
         return "5 recipes deep"
 
     for key, value in recipe_list.items():
@@ -62,9 +71,12 @@ def recurse(*args):
 
         #only continues loop if recipe worked
         pathway.append(recipe)
+
+        #straight returning seems wrong, messes with backtraking
         return recurse(pathway, str(new_candy_iteration))
 
-    return pathway
+    #currently, if you can't use a recipe, it ends
+    return #backtrack code
 
 def main():
 #    add_custom_recipe()
