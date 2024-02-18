@@ -1,6 +1,6 @@
 from collections import deque
 
-def bfs(starting_components, recipes, target_components):
+def bfs(starting_components, recipes, target_components, max_candies):
     queue = deque([(starting_components, [])])
     visited = set()
     all_paths = []
@@ -21,7 +21,7 @@ def bfs(starting_components, recipes, target_components):
                     new_state.remove(component)
                 new_state.extend(result)
 
-                if tuple(new_state) not in visited:
+                if tuple(new_state) not in visited and len(new_state) <= max_candies:
                     visited.add(tuple(new_state))
                     queue.append((new_state, path + [(recipe, result)]))
 
@@ -48,23 +48,72 @@ def find_path_with_most_candies(all_paths):
 
     return path_with_most_candies, max_remaining_candies
 
+# starting_components = [
+#     'A', 'A',
+#     'B', 'B', 'B', 'B', 'B', 'B', 'B',
+#     'E', 'E'
+# ]
+
+# recipes = {
+#     ('B', 'B', 'E'): ('C', 'C', 'D'),
+#     ('A', 'E', 'E'): ('B', 'B', 'B', 'D'),
+#     ('B', 'B'): ('C'),
+#     ('B', 'B', 'B'): ('C', 'C'),
+#     ('E',): ('C'),  # Fixed the recipe tuple
+# }
+
+# target_components = ['A', 'B', 'B', 'C', 'C']
+
 starting_components = [
-    'A', 'A',
-    'B', 'B', 'B', 'B', 'B', 'B', 'B',
-    'E', 'E'
+    'P', 'P', 'P', 'P', 'P', 'P', 'P', 
+    'G','G','G','G','G','G','G','G',
+    'L','L','L','L',
+    'R', 'R','R', 'R','R'
 ]
 
-recipes = {
-    ('B', 'B', 'E'): ('C', 'C', 'D'),
-    ('A', 'E', 'E'): ('B', 'B', 'B', 'D'),
-    ('B', 'B'): ('C'),
-    ('B', 'B', 'B'): ('C', 'C'),
-    ('E',): ('C'),  # Fixed the recipe tuple
+your_recipes = {
+    ('G', 'G', 'L'): ('B', 'P', 'P'),
+    ('P', 'G'): ('B', 'B', 'B'),
+    ('L', 'L', 'R'): ('B', 'P', 'P'),
+    ('B', 'P', 'P'): ('G', 'G', 'R'),
 }
 
-target_components = ['A', 'B', 'B', 'C', 'C']
+target_components = [    'B', 'B', 'B', 'B', 'B'
+    'P', 
+    'G','G','G','G',
+    'L','L','L','L',
+    'R', 'R'
+]
 
-result_path = bfs(starting_components, recipes, target_components)
+simple_exchange = {
+    ('B', 'B', 'B'): ('P'),
+    ('P', 'P', 'P'): ('B'),
+    ('G', 'G', 'G'): ('L'),
+    ('L', 'L', 'L'): ('R'),
+    ('R', 'R', 'R'): ('G'),
+    ('B', 'B', 'B'): ('G'),
+    ('P', 'P', 'P'): ('L'),
+    ('G', 'G', 'G'): ('R'),
+    ('L', 'L', 'L'): ('B'),
+    ('R', 'R', 'R'): ('P'),
+    ('B', 'B', 'B'): ('L'),
+    ('P', 'P', 'P'): ('G'),
+    ('G', 'G', 'G'): ('B'),
+    ('L', 'L', 'L'): ('P'),
+    ('R', 'R', 'R'): ('L'),
+    ('B', 'B', 'B'): ('R'),
+    ('P', 'P', 'P'): ('R'),
+    ('G', 'G', 'G'): ('P'),
+    ('L', 'L', 'L'): ('G'),
+    ('R', 'R', 'R'): ('B'),
+}
+
+recipes = {**simple_exchange, **your_recipes}
+recipes = your_recipes
+
+max_candies = 30
+
+result_path = bfs(starting_components, recipes, target_components, max_candies)
 
 if result_path[0]:
     if result_path[1] == []:
