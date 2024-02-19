@@ -1,7 +1,8 @@
 from collections import deque
 
-def bfs(starting_components, recipes, target_components, max_candies):
-    queue = deque([(starting_components, [])])
+
+def bfs(starting_components, recipes, target_components, max_candies, max_depth):
+    queue = deque([(starting_components, [], 0)])  # Add depth information to the queue
     visited = set()
     all_paths = []
 
@@ -9,21 +10,23 @@ def bfs(starting_components, recipes, target_components, max_candies):
         return True, []
 
     while queue:
-        current_state, path = queue.popleft()
+        current_state, path, depth = queue.popleft()
 
         if all(current_state.count(component) >= target_components.count(component) for component in set(target_components)):
             all_paths.append((path, current_state))
 
-        for recipe, result in recipes.items():
-            if all(current_state.count(component) >= recipe.count(component) for component in recipe):
-                new_state = list(current_state)
-                for component in recipe:
-                    new_state.remove(component)
-                new_state.extend(result)
+        if depth < max_depth:  # Check if the current depth is within the limit
+            for recipe, result in recipes.items():
+                if all(current_state.count(component) >= recipe.count(component) for component in recipe):
+                    new_state = list(current_state)
+                    for component in recipe:
+                        new_state.remove(component)
+                    new_state.extend(result)
 
-                if tuple(new_state) not in visited and len(new_state) <= max_candies:
-                    visited.add(tuple(new_state))
-                    queue.append((new_state, path + [(recipe, result)]))
+                    if tuple(new_state) not in visited and len(new_state) <= max_candies:
+                        visited.add(tuple(new_state))
+                        queue.append((new_state, path + [(recipe, result)], depth + 1))  # Increment depth
+                        print((new_state, path + [(recipe, result)], depth + 1))
 
     if all_paths:
         return True, all_paths
@@ -54,12 +57,14 @@ def find_path_with_most_candies(all_paths):
 #     'E', 'E'
 # ]
 
-# recipes = {
+# your_recipes = {
 #     ('B', 'B', 'E'): ('C', 'C', 'D'),
 #     ('A', 'E', 'E'): ('B', 'B', 'B', 'D'),
 #     ('B', 'B'): ('C'),
 #     ('B', 'B', 'B'): ('C', 'C'),
-#     ('E',): ('C'),  # Fixed the recipe tuple
+#     ('E',): ('A', 'A'),
+#     ('A', 'A'): ('D', 'D', 'C'),
+    
 # }
 
 # target_components = ['A', 'B', 'B', 'C', 'C']
@@ -68,7 +73,7 @@ starting_components = [
     'P', 'P', 'P', 'P', 'P', 'P', 'P', 
     'G','G','G','G','G','G','G','G',
     'L','L','L','L',
-    'R', 'R','R', 'R','R'
+    'R','R','R','R','R',
 ]
 
 your_recipes = {
@@ -78,7 +83,8 @@ your_recipes = {
     ('B', 'P', 'P'): ('G', 'G', 'R'),
 }
 
-target_components = [    'B', 'B', 'B', 'B', 'B'
+target_components = [    
+    'B', 'B', 'B', 'B', 'B',
     'P', 
     'G','G','G','G',
     'L','L','L','L',
@@ -108,29 +114,31 @@ simple_exchange = {
     ('R', 'R', 'R'): ('B'),
 }
 
-recipes = {**simple_exchange, **your_recipes}
-recipes = your_recipes
+def run_candyworks(starting_candy, target_candy, your_recipes, max_candies = 24, max_depth = 10):
+    recipes = {**simple_exchange, **your_recipes}
 
-max_candies = 30
+    result_path = bfs(starting_components, recipes, target_components, max_candies, max_depth)
+    if result_path[0]:
+        if result_path[1] == []:
+            print("Starting components contain the target")
+        else:
+            print("BFS Paths Found:")
+            for path, state in result_path[1]:
+                print("Path:")
+                for recipe in path:
+                    print(f"Apply Recipe {recipe[0]} to get to {recipe[1]}")
+                print_remaining_candies(state)  # Print remaining candies after each path
+                print("-------------------")
 
-result_path = bfs(starting_components, recipes, target_components, max_candies)
-
-if result_path[0]:
-    if result_path[1] == []:
-        print("Starting components contain the target")
+            path_with_most_candies, most_candies = find_path_with_most_candies(result_path[1])
+            print("\nPath with Most Candies Remaining:")
+            print("R")
+            print(path_with_most_candies)
+            print("Number of Candies Remaining Before Starting Exchange:", len(starting_components))
+            print("Number of Candies Remaining After Purchase:", most_candies, most_candies - len(target_components))
     else:
-        print("BFS Paths Found:")
-        for path, state in result_path[1]:
-            print("Path:")
-            for recipe in path:
-                print(f"Apply Recipe {recipe[0]} to get to {recipe[1]}")
-            print_remaining_candies(state)  # Print remaining candies after each path
-            print("-------------------")
+        print("No path found.")
+        pass
 
-        path_with_most_candies, most_candies = find_path_with_most_candies(result_path[1])
-        print("\nPath with Most Candies Remaining:")
-        print(path_with_most_candies)
-        print("Number of Candies Remaining Before Purchase:", most_candies)
-        print("Number of Candies Remaining After Purchase:", most_candies - len(target_components))
-else:
-    print("No path found.")
+    return path_with_most_candies, most_candies, starting_components, most_candies - len(target_components)
+
