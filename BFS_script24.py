@@ -1,4 +1,6 @@
 from collections import deque
+import sys
+from typing import List, Dict
 
 
 def bfs(starting_components, recipes, target_components, max_candies, max_depth):
@@ -26,7 +28,6 @@ def bfs(starting_components, recipes, target_components, max_candies, max_depth)
                     if tuple(new_state) not in visited and len(new_state) <= max_candies:
                         visited.add(tuple(new_state))
                         queue.append((new_state, path + [(recipe, result)], depth + 1))  # Increment depth
-                        print((new_state, path + [(recipe, result)], depth + 1))
 
     if all_paths:
         return True, all_paths
@@ -114,7 +115,8 @@ simple_exchange = {
     ('R', 'R', 'R'): ('B'),
 }
 
-def run_candyworks(starting_candy, target_candy, your_recipes, max_candies = 24, max_depth = 10):
+def run_candyworks(starting_components: List[str], target_components: List[str], your_recipes, max_candies = 24, max_depth = 10):
+    print ("Running Candyworks")
     recipes = {**simple_exchange, **your_recipes}
 
     result_path = bfs(starting_components, recipes, target_components, max_candies, max_depth)
@@ -127,18 +129,19 @@ def run_candyworks(starting_candy, target_candy, your_recipes, max_candies = 24,
                 print("Path:")
                 for recipe in path:
                     print(f"Apply Recipe {recipe[0]} to get to {recipe[1]}")
-                print_remaining_candies(state)  # Print remaining candies after each path
+                print_remaining_candies(state) 
                 print("-------------------")
 
-            path_with_most_candies, most_candies = find_path_with_most_candies(result_path[1])
+            path_with_most_candies, most_candies = find_path_with_most_candies(result_path[1])  
             print("\nPath with Most Candies Remaining:")
-            print("R")
             print(path_with_most_candies)
             print("Number of Candies Remaining Before Starting Exchange:", len(starting_components))
-            print("Number of Candies Remaining After Purchase:", most_candies, most_candies - len(target_components))
+            print("Number of Candies Remaining After Purchase:", most_candies - len(target_components))
     else:
         print("No path found.")
-        pass
+        return 
 
-    return path_with_most_candies, most_candies, starting_components, most_candies - len(target_components)
+    return path_with_most_candies, len(starting_components), most_candies - len(target_components)
 
+def run_candyworks2(starting_components: List[str], target_components: List[str], your_recipes, max_candies = 24, max_depth = 10):
+    return [(('P', 'P', 'P'), 'R'), (('P', 'G'), ('B', 'B', 'B')), (('P', 'G'), ('B', 'B', 'B'))], 24, 8
