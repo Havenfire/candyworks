@@ -1,9 +1,9 @@
 from collections import deque
 import sys
-from typing import List, Dict
+from typing import List
 
 
-def bfs(starting_components, recipes, target_components, max_candies, max_depth):
+def bfs(starting_components, your_recipes, simple_exchange, target_components, max_candies, max_depth):
     queue = deque([(starting_components, [], 0)])  # Add depth information to the queue
     visited = set()
     all_paths = []
@@ -17,8 +17,11 @@ def bfs(starting_components, recipes, target_components, max_candies, max_depth)
         if all(current_state.count(component) >= target_components.count(component) for component in set(target_components)):
             all_paths.append((path, current_state))
 
-        if depth < max_depth:  # Check if the current depth is within the limit
-            for recipe, result in recipes.items():
+        if depth < max_depth:
+
+
+            for recipe, result in your_recipes.items():
+
                 if all(current_state.count(component) >= recipe.count(component) for component in recipe):
                     new_state = list(current_state)
                     for component in recipe:
@@ -28,6 +31,19 @@ def bfs(starting_components, recipes, target_components, max_candies, max_depth)
                     if tuple(new_state) not in visited and len(new_state) <= max_candies:
                         visited.add(tuple(new_state))
                         queue.append((new_state, path + [(recipe, result)], depth + 1))  # Increment depth
+            
+            for recipe, result_list in simple_exchange.items():
+                for single_val in result_list:
+                    if all(current_state.count(component) >= recipe.count(component) for component in recipe):
+                        new_state = list(current_state)
+                        for component in recipe:
+                            new_state.remove(component)
+                        new_state.extend(single_val)
+
+                        if tuple(new_state) not in visited and len(new_state) <= max_candies:
+                            visited.add(tuple(new_state))
+                            queue.append((new_state, path + [(recipe, single_val)], depth + 1))  # Increment depth                
+                
 
     if all_paths:
         return True, all_paths
@@ -93,33 +109,18 @@ target_components = [
 ]
 
 simple_exchange = {
-    ('B', 'B', 'B'): ('P'),
-    ('P', 'P', 'P'): ('B'),
-    ('G', 'G', 'G'): ('L'),
-    ('L', 'L', 'L'): ('R'),
-    ('R', 'R', 'R'): ('G'),
-    ('B', 'B', 'B'): ('G'),
-    ('P', 'P', 'P'): ('L'),
-    ('G', 'G', 'G'): ('R'),
-    ('L', 'L', 'L'): ('B'),
-    ('R', 'R', 'R'): ('P'),
-    ('B', 'B', 'B'): ('L'),
-    ('P', 'P', 'P'): ('G'),
-    ('G', 'G', 'G'): ('B'),
-    ('L', 'L', 'L'): ('P'),
-    ('R', 'R', 'R'): ('L'),
-    ('B', 'B', 'B'): ('R'),
-    ('P', 'P', 'P'): ('R'),
-    ('G', 'G', 'G'): ('P'),
-    ('L', 'L', 'L'): ('G'),
-    ('R', 'R', 'R'): ('B'),
+    ('B', 'B', 'B'): ['P', 'G', 'L', 'R'],
+    ('P', 'P', 'P'): ['B', 'G', 'L', 'R'],
+    ('G', 'G', 'G'): ['B', 'P', 'L', 'R'],
+    ('L', 'L', 'L'): ['B', 'P', 'G', 'R'],
+    ('R', 'R', 'R'): ['B', 'P', 'G', 'L'],
+
 }
 
-def run_candyworks(starting_components: List[str], target_components: List[str], your_recipes, max_candies = 24, max_depth = 10):
+def run_candyworks(starting_components: List[str], target_components: List[str], your_recipes, max_candies = 24, max_depth = 6):
     print ("Running Candyworks")
-    recipes = {**simple_exchange, **your_recipes}
 
-    result_path = bfs(starting_components, recipes, target_components, max_candies, max_depth)
+    result_path = bfs(starting_components, your_recipes, simple_exchange, target_components, max_candies, max_depth)
     if result_path[0]:
         if result_path[1] == []:
             print("Starting components contain the target")
@@ -143,5 +144,4 @@ def run_candyworks(starting_components: List[str], target_components: List[str],
 
     return path_with_most_candies, len(starting_components), most_candies - len(target_components)
 
-def run_candyworks2(starting_components: List[str], target_components: List[str], your_recipes, max_candies = 24, max_depth = 10):
-    return [(('P', 'P', 'P'), 'R'), (('P', 'G'), ('B', 'B', 'B')), (('P', 'G'), ('B', 'B', 'B'))], 24, 8
+run_candyworks(starting_components, target_components, your_recipes)

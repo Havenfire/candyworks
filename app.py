@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import BFS_script24
-import re
 import util
 
 app = Flask(__name__)
