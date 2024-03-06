@@ -124,9 +124,6 @@
             formData[this.name] = $(this).val();
           });
 
-          console.log("FormData");
-          console.log(JSON.stringify(formData));
-
           $.ajax({
             type: "POST",
             url: "/process_form",
@@ -135,18 +132,18 @@
               // Clear the resultInfo div before displaying new data
               $("#resultInfo").empty();
 
-              // Check if the response.result is an object
               if (typeof response.result === "object") {
-                // Iterate over the properties of the object and append them to the resultInfo div
+                // If the response.result is an object, iterate over its properties and append them to the resultInfo div
                 for (var key in response.result) {
-                  if (response.result.hasOwnProperty(key)) {
-                    $("#resultInfo").append(
-                      "<p>" + key + ": " + response.result[key] + "</p>"
-                    );
-                  }
+                  // Convert the value to a string with parentheses
+                  var formattedValue = JSON.stringify(response.result[key]);
+
+                  $("#resultInfo").append(
+                    "<p>" + key + ": " + formattedValue + "</p>"
+                  );
                 }
               } else {
-                // If the response.result is not an object, display it directly
+                // If the response.result is neither an array nor an object, display it directly
                 $("#resultInfo").html("<p>" + response.result + "</p>");
               }
             },

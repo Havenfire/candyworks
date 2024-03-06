@@ -60,7 +60,7 @@ def process_form_data(request):
         weaved_dict[left] = right
 
     path_with_most_candies, len_starting_components, len_remaining = BFS_script24.run_candyworks(
-        candy_components, target_components, your_recipes=weaved_dict, max_candies=max_candies, max_depth=10)
+        candy_components, target_components, your_recipes=weaved_dict, max_candies=max_candies, max_depth=5)
     print(path_with_most_candies, len_starting_components, len_remaining)
     return {
         'Path With Most Leftover Candies': path_with_most_candies,
@@ -70,19 +70,14 @@ def process_form_data(request):
 
 @app.route("/", methods=["GET", "POST"])
 def main_app():
-    result_info = None
-
-    if request.method == "POST":
-        result_info = process_form_data(request)
-        return render_template("index.html", result_info=result_info, input_values=request.form)
-
-    return render_template("index.html", result_info=result_info)
+    return render_template("index.html")
 
 
 @app.route("/process_form", methods=["POST"])
 def process_form():
     result_info = process_form_data(request)
     print("Result_info:", result_info)
+
     return jsonify(result=result_info, input_values=request.form)
 
 
