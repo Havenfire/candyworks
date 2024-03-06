@@ -5,10 +5,6 @@ import util
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 def process_form_data(request):
     input_values = [
         request.form.get("input1"),
