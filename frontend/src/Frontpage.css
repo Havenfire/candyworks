@@ -15,12 +15,12 @@
 
 .content {
   display: flex;
-  flex: 1;
+  flex: 1.3;
 }
 
 
 .central-content-top {
-  flex: 1;
+  flex: 1.3;
   display: flex;
   flex-direction: column;
 }
@@ -95,14 +95,15 @@
 
 .right-content {
   flex: 1;
-  /* Takes up 1/3 of the space */
   display: flex;
-  /* Align children vertically */
-  flex-direction: column;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically if needed */
+  flex-direction: column; /* Stack children vertically */
 }
 
+
 .right-box {
-  flex: 1;
+  flex: .7;
   border: 1px solid black;
   margin: 10px;
   width: 100%;
@@ -116,10 +117,9 @@
 }
 
 .right-box-exchange {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
+  width: 100%; /* Adjust based on your layout */
+  max-width: 600px; /* Example max width */
+  margin: auto; /* Auto margins for horizontal centering */
 }
 
 .exchange-div {
@@ -164,6 +164,19 @@
 }
 
 
+.submit-button {
+  margin-top: 20px; /* Adjust based on layout */
+  padding: 10px 20px;
+  background-color: #4CAF50; /* Example color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #45a049; /* Darker shade for hover effect */
+}
 
 
 /* Additional styles to ensure the boxes don't get too small on smaller screens */

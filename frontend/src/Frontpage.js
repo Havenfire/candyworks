@@ -5,6 +5,9 @@ import img2 from './images/image-2.jpg';
 import img3 from './images/image-3.jpg';
 import img4 from './images/image-4.jpg';
 import img5 from './images/image-5.jpg';
+import bfs from './BFS_script24.js';
+
+const LETTER_MAPPINGS = { '1': 'B', '2': 'P', '3': 'G', '4': 'L', '5': 'R' };
 
 function Frontpage() {
   const [inputValue, setInputValue] = useState("");
@@ -12,15 +15,19 @@ function Frontpage() {
   const [rightInputValue, setRightInputValue] = useState("");
   const [isRightPlaceholderVisible, setIsRightPlaceholderVisible] = useState(true);
   const [candyCount, setCandyCount] = useState("");
+  const [bfsResult, setBfsResult] = useState({ found: false, allPaths: [] });
+
   const [exchangeInputs, setExchangeInputs] = useState([
-    { left: "", right: "" },
-    { left: "", right: "" },
-    { left: "", right: "" },
-    { left: "", right: "" },
+    { id: 1, left: "", right: "" },
+    { id: 2, left: "", right: "" },
+    { id: 3, left: "", right: "" },
+    { id: 4, left: "", right: "" },
   ]);
 
   const editableDivRef = useRef(null);
   const [currentFocus, setCurrentFocus] = useState("");
+
+
 
   function handleKeyDown(event) {
     const key = event.key;
@@ -96,7 +103,53 @@ function Frontpage() {
     }, 0);
   }
 
+  const handleSubmit = () => {
+    // Parsing startingComponents and targetComponents with spaces and commas removed
+    const parseComponents = (input) => input.split(',')
+      .map(s => s.trim().replace(/\s+/g, '')) // Remove all spaces
+      .filter(s => s !== ''); // Remove empty strings
 
+    const startingComponents = parseComponents(rightInputValue);
+    const targetComponents = parseComponents(inputValue);
+
+    let yourRecipes = {};
+    exchangeInputs.forEach((exchange) => {
+      // Ensure inputs and outputs are properly parsed and trimmed
+      const inputs = exchange.left.split(',').map(s => s.trim()).filter(Boolean);
+      const outputs = exchange.right.split(',').map(s => s.trim()).filter(Boolean);
+      
+      // Use the exchange ID as the main key
+      if (inputs.length > 0 && outputs.length > 0) {
+        yourRecipes[exchange.id] = {
+          inputs: inputs,
+          outputs: outputs
+        };
+      }
+    });
+
+
+    const simpleExchange = {
+      "BBB": ["P", "G", "L", "R"],
+      "PPP": ["B", "G", "L", "R"],
+      "GGG": ["B", "P", "L", "R"],
+      "LLL": ["B", "P", "G", "R"],
+      "RRR": ["B", "P", "G", "L"],
+    };
+
+    // Adjust simpleExchange processing as needed since commas are removed now
+
+    const maxCandies = parseInt(candyCount, 10) || 24; // Use a default if not specified
+    const maxDepth = 5;
+
+    // Call the BFS function with the prepared parameters
+    const [found, allPaths] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
+
+    // Use the BFS results. For example, updating the React state to display results
+    setBfsResult({ found, allPaths });
+
+    console.log("BFS Search Found:", found);
+    console.log("Paths:", allPaths);
+  };
 
 
   return (
@@ -137,6 +190,32 @@ function Frontpage() {
                 onFocus={handleFocus} // Ensure this calls the updated handleFocus
                 tabIndex="0"
               />
+              <button onClick={handleSubmit} className="submit-button">Submit Candies</button>
+              {/* Results Section */}
+              <div className="results-display">
+                {bfsResult.found ? (
+                  <div>
+                    <h2>Results Found:</h2>
+                    {bfsResult.allPaths.map((path, pathIndex) => (
+                      <div key={pathIndex}>
+                        <h3>Path {pathIndex + 1}:</h3>
+                        <ul>
+                          {path.map((step, stepIndex) => {
+                            // Assuming step is an object or a way to identify the exchange, adjust as necessary
+                            const inputCandy = step.input; // Adjust according to your actual data structure
+                            const outputCandy = step.output; // Adjust according to your actual data structure
+                            return (
+                              <li key={stepIndex}>{`${inputCandy} Exchanged for ${outputCandy}`}</li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  bfsResult.allPaths.length > 0 && <p>No paths found matching the criteria.</p>
+                )}
+              </div>
 
             </div>
           </div>
@@ -178,7 +257,7 @@ function Frontpage() {
               className="candy-count-input"
             />
           </div>
-
+          <p>Exchange Candies</p>
           <div className="right-box-exchange">
             {exchangeInputs.map((input, index) => (
               <div key={index} className="exchange-div">

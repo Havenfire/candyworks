@@ -141,3 +141,5 @@ def run_candyworks(starting_components: List[str], target_components: List[str],
         return 
 
     return path_with_most_candies, len(starting_components), most_candies - len(target_components)
+
+run_candyworks(starting_components, target_components, your_recipes, 24, 5)

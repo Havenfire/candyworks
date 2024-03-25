@@ -38,7 +38,10 @@ def process_form_data(data):
 @app.route("/process_form", methods=["POST"])
 def process_form():
     data = request.get_json()  # Get JSON data from the request
+    print("Received data:", data)  # Print received data for debugging
+
     result_info = process_form_data(data)
+    print("Sending response:", result_info)  # Print response data for debugging
     return jsonify(result=result_info)
 
 
