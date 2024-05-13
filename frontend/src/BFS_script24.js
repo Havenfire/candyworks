@@ -23,6 +23,8 @@ function bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, 
     console.log("Target Components:", targetComponents);
     console.log("Max Depth:", maxDepth);
     console.log("Max Candies:", maxCandies);
+    console.log("yourRecipes:", yourRecipes);
+    console.log("simpleExchange:", simpleExchange);
     
     let queue = new Queue();
     queue.enqueue([startingComponents, [], 0]); // Add depth information to the queue
@@ -80,8 +82,17 @@ function bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, 
         }
     }
 
-    return allPaths; // Return allPaths array
 
+
+    if( allPaths.length === 0)
+        return [false, allPaths]
+    else{
+        let [pathWithMostCandies, maxRemainingCandies] = findPathWithMostCandies(allPaths);
+        return [true, allPaths, pathWithMostCandies]
+    }
+
+
+        
 }
 
 
@@ -100,10 +111,6 @@ function findPathWithMostCandies(allPaths) {
     return [pathWithMostCandies, maxRemainingCandies];
 }
 
-
-// Example usage of the BFS function in JavaScript
-
-// Simulate starting components as an array of strings
 // let startingComponents = [
 //     'P', 'P', 'P', 'P', 'P', 'P', 'P',
 //     'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G',
@@ -111,7 +118,6 @@ function findPathWithMostCandies(allPaths) {
 //     'R', 'R', 'R', 'R', 'R',
 // ];
 
-// // Simulate your recipes as an object with string keys and array values
 // let yourRecipes = {
 //     "G, G, L": ["B", "P", "P"],
 //     "P, G": ["B", "B", "B"],
@@ -119,7 +125,6 @@ function findPathWithMostCandies(allPaths) {
 //     "B, P, P": ["G", "G", "R"],
 // };
 
-// // Simulate simple exchange as an object with string keys and array of string values
 // let simpleExchange = {
 //     "B, B, B": ["P", "G", "L", "R"],
 //     "P, P, P": ["B", "G", "L", "R"],
@@ -128,7 +133,6 @@ function findPathWithMostCandies(allPaths) {
 //     "R, R, R": ["B", "P", "G", "L"],
 // };
 
-// // Simulate target components as an array of strings
 // let targetComponents = [
 //     'B', 'B', 'B', 'B', 'B',
 //     'P',
@@ -137,20 +141,32 @@ function findPathWithMostCandies(allPaths) {
 //     'R', 'R',
 // ];
 
-// // Parameters for BFS
 // let maxCandies = 24;
-// let maxDepth = 5;
+// // let maxDepth = 5;
 
-// // Execute BFS
-// let [found, allPaths] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
 
-// // Find the path with the most candies remaining
-// if (found) {
-//     let [pathWithMostCandies, maxRemainingCandies] = findPathWithMostCandies(allPaths);
-//     console.log("Path with Most Candies Remaining:", pathWithMostCandies);
-//     console.log("Max Remaining Candies:", maxRemainingCandies);
-// } else {
-//     console.log("No path found.");
+// let startingComponents = [
+//     "B", "P", "Y", "R",
+// ]
+
+// let targetComponents = [
+//     "B", "P", "Y", "O",
+// ]
+// let yourRecipes = {
+//     "R": ["O"]
 // }
 
+// let simpleExchange = {
+//     "B, B, B": ["P", "Y", "O", "R"],
+//     "P, P, P": ["B", "Y", "O", "R"],
+//     "Y, Y, Y": ["B", "P", "O", "R"],
+//     "O, O, O": ["B", "P", "Y", "R"],
+//     "R, R, R": ["B", "P", "Y", "O"],
+// };
+
+// let maxCandies = 20
+// let maxDepth = 5
+
+// let [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
+// console.log("SOLUTION", found, maxPath)
 export default bfs;

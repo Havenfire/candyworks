@@ -1,21 +1,20 @@
 import React, { useState, useRef } from 'react';
 import './Frontpage.css';
-import img1 from './images/image-1.jpg';
-import img2 from './images/image-2.jpg';
-import img3 from './images/image-3.jpg';
-import img4 from './images/image-4.jpg';
-import img5 from './images/image-5.jpg';
-import bfs from './BFS_script24.js';
 
-const LETTER_MAPPINGS = { '1': 'B', '2': 'P', '3': 'G', '4': 'L', '5': 'R' };
+import img1 from './images/midgate_mudball.png';
+import img2 from './images/shade_shore_sugarworms.png';
+import img3 from './images/skywrath_squawksicles.png';
+import img4 from './images/goldlake_glitterfish.png';
+import img5 from './images/oglodi_trail_jerky.png';
+import bfs from './BFS_script24.js';
 
 function Frontpage() {
   const [inputValue, setInputValue] = useState("");
   const [isPlaceholderVisible, setIsPlaceholderVisible] = useState(true);
-  const [rightInputValue, setRightInputValue] = useState("");
+  const [startingInputValue, setstartingInputValue] = useState("");
   const [isRightPlaceholderVisible, setIsRightPlaceholderVisible] = useState(true);
   const [candyCount, setCandyCount] = useState("");
-  const [bfsResult, setBfsResult] = useState({ found: false, allPaths: [] });
+  const [bfsResult, setBfsResult] = useState({ found: false, allPaths: [], maxPath:[] });
 
   const [exchangeInputs, setExchangeInputs] = useState([
     { id: 1, left: "", right: "" },
@@ -31,7 +30,7 @@ function Frontpage() {
 
   function handleKeyDown(event) {
     const key = event.key;
-    const candyNames = { '1': 'Candy 1', '2': 'Candy 2', '3': 'Candy 3', '4': 'Candy 4', '5': 'Candy 5' };
+    const candyNames = { '1': 'B', '2': 'P', '3': 'Y', '4': 'O', '5': 'R' };
 
     if (candyNames[key]) {
       event.preventDefault(); // Prevent the default key press behavior
@@ -47,7 +46,7 @@ function Frontpage() {
           setInputValue(prev => updateMainAndStarting(prev, 30));
           break;
         case 'rightInput':
-          setRightInputValue(prev => updateMainAndStarting(prev, 30));
+          setstartingInputValue(prev => updateMainAndStarting(prev, 30));
           break;
         default:
           const match = currentFocus.match(/exchange(\d+)(Left|Right)/);
@@ -89,7 +88,7 @@ function Frontpage() {
     setCurrentFocus('rightInput'); // Updated to use a string identifier
     if (isRightPlaceholderVisible) {
       setIsRightPlaceholderVisible(false);
-      setRightInputValue("");
+      setstartingInputValue("");
     }
   }
 
@@ -109,46 +108,45 @@ function Frontpage() {
       .map(s => s.trim().replace(/\s+/g, '')) // Remove all spaces
       .filter(s => s !== ''); // Remove empty strings
 
-    const startingComponents = parseComponents(rightInputValue);
+
+    const startingComponents = parseComponents(startingInputValue);
     const targetComponents = parseComponents(inputValue);
+    console.log(startingComponents)
+    console.log(targetComponents)
 
     let yourRecipes = {};
     exchangeInputs.forEach((exchange) => {
       // Ensure inputs and outputs are properly parsed and trimmed
-      const inputs = exchange.left.split(',').map(s => s.trim()).filter(Boolean);
-      const outputs = exchange.right.split(',').map(s => s.trim()).filter(Boolean);
+      // const inputs = exchange.left.split(',').map(s => s.trim()).filter(Boolean);
+      let inputs = exchange.left.split(',').map(s => s.trim()).filter(Boolean);
+      let outputs = exchange.right.split(',').map(s => s.trim()).filter(Boolean);
       
       // Use the exchange ID as the main key
       if (inputs.length > 0 && outputs.length > 0) {
-        yourRecipes[exchange.id] = {
-          inputs: inputs,
-          outputs: outputs
-        };
+        yourRecipes[inputs] = outputs
       }
     });
 
 
     const simpleExchange = {
-      "BBB": ["P", "G", "L", "R"],
-      "PPP": ["B", "G", "L", "R"],
-      "GGG": ["B", "P", "L", "R"],
-      "LLL": ["B", "P", "G", "R"],
-      "RRR": ["B", "P", "G", "L"],
+      "B, B, B": ["P", "Y", "O", "R"],
+      "P, P, P": ["B", "Y", "O", "R"],
+      "Y, Y, Y": ["B", "P", "O", "R"],
+      "O, O, O": ["B", "P", "Y", "R"],
+      "R, R, R": ["B", "P", "Y", "O"],
     };
 
-    // Adjust simpleExchange processing as needed since commas are removed now
-
-    const maxCandies = parseInt(candyCount, 10) || 24; // Use a default if not specified
+    const maxCandies = parseInt(candyCount, 10) || 20; 
     const maxDepth = 5;
 
-    // Call the BFS function with the prepared parameters
-    const [found, allPaths] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
+    let [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
 
-    // Use the BFS results. For example, updating the React state to display results
-    setBfsResult({ found, allPaths });
+
+    setBfsResult({ found, allPaths, maxPath });
 
     console.log("BFS Search Found:", found);
     console.log("Paths:", allPaths);
+    console.log("max_path:", maxPath);
   };
 
 
@@ -196,24 +194,10 @@ function Frontpage() {
                 {bfsResult.found ? (
                   <div>
                     <h2>Results Found:</h2>
-                    {bfsResult.allPaths.map((path, pathIndex) => (
-                      <div key={pathIndex}>
-                        <h3>Path {pathIndex + 1}:</h3>
-                        <ul>
-                          {path.map((step, stepIndex) => {
-                            // Assuming step is an object or a way to identify the exchange, adjust as necessary
-                            const inputCandy = step.input; // Adjust according to your actual data structure
-                            const outputCandy = step.output; // Adjust according to your actual data structure
-                            return (
-                              <li key={stepIndex}>{`${inputCandy} Exchanged for ${outputCandy}`}</li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    ))}
+                    <pre>{JSON.stringify(bfsResult.maxPath, null, 2)}</pre>
                   </div>
                 ) : (
-                  bfsResult.allPaths.length > 0 && <p>No paths found matching the criteria.</p>
+                  <p>No paths found matching the criteria.</p>
                 )}
               </div>
 
@@ -228,14 +212,14 @@ function Frontpage() {
             <div
               className={`editable-div ${isRightPlaceholderVisible ? 'placeholder' : ''}`}
               contentEditable
-              dangerouslySetInnerHTML={{ __html: isRightPlaceholderVisible ? 'Press keys 1, 2, 3, 4, or 5 to insert a candy.' : rightInputValue }}
+              dangerouslySetInnerHTML={{ __html: isRightPlaceholderVisible ? 'Press keys 1, 2, 3, 4, or 5 to insert a starting candy.' : startingInputValue }}
               onInput={e => {
                 if (!e.currentTarget.textContent.trim()) {
                   setIsRightPlaceholderVisible(true);
                 } else {
                   setIsRightPlaceholderVisible(false);
                 }
-                setRightInputValue(e.currentTarget.textContent);
+                setstartingInputValue(e.currentTarget.textContent);
               }}
               onKeyDown={handleKeyDown}
               onFocus={handleRightFocus} // Ensure this calls the updated handleRightFocus
@@ -253,7 +237,7 @@ function Frontpage() {
                   setCandyCount(""); // Allow clear
                 }
               }}
-              placeholder="Enter Max Candies (1-30)"
+              placeholder="Enter Max Candies (1-30) (Default 20)"
               className="candy-count-input"
             />
           </div>
