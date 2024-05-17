@@ -242,7 +242,13 @@ function Frontpage() {
             />
           </div>
           <p>Exchange Candies</p>
+          <div className='label-IO'>
+            <p className='align-left'>Input</p>
+            <p className='align-right'>Output</p>
+
+          </div>
           <div className="right-box-exchange">
+
             {exchangeInputs.map((input, index) => (
               <div key={index} className="exchange-div">
                 <div

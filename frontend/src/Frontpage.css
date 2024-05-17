@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 70px;
+  height: 10%;
   /* Adjust height as needed */
   border: 1px solid black;
 }
@@ -23,6 +23,9 @@
   flex: 1.3;
   display: flex;
   flex-direction: column;
+  outline: 1px solid green;
+  height: 90%;
+
 }
 
 .central-content {
@@ -99,6 +102,8 @@
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically if needed */
   flex-direction: column; /* Stack children vertically */
+  outline: 1px solid red;
+  height: 90%;
 }
 
 
@@ -107,33 +112,40 @@
   border: 1px solid black;
   margin: 10px;
   width: 100%;
-  /* Adjust based on your layout needs */
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* This will center the contents of each box */
-  margin-bottom: 20px;
-  /* Optional: adds some space between the boxes */
+}
+
+.label-IO{
+  width: 100%;
+  border: 1px solid black;
+
 }
 
 .right-box-exchange {
-  width: 100%; /* Adjust based on your layout */
-  max-width: 600px; /* Example max width */
-  margin: auto; /* Auto margins for horizontal centering */
+  width: 100%; 
+  max-width: 600px; 
+  margin: auto;
+  outline: 1px solid black;
+  height: 300px;
+
 }
 
 .exchange-div {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
+
 .exchange-input {
-  width: 48%; /* Slightly less than half to fit side by side */
+  width: 50%; /* Slightly less than half to fit side by side */
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 8px;
   margin-top: 5px;
   text-align: left;
+  outline: 1px solid black;
 }
 
 
@@ -178,6 +190,21 @@
   background-color: #45a049; /* Darker shade for hover effect */
 }
 
+.align-left {
+  float: left;
+  text-align: left;
+  width: 50%;
+  outline: 1px solid black;
+  margin: 0;
+}
+.align-right {
+  float: right;
+  text-align: right;
+  width: 50%;
+  outline: 1px solid black;
+  margin: 0;
+
+}
 
 /* Additional styles to ensure the boxes don't get too small on smaller screens */
 @media (min-width: 768px) {
