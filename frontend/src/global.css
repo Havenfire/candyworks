@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Reaver:wght@600&display=swap");
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* fonts */
+  --font-reaver: Reaver;
+
+  /* font sizes */
+  --font-size-lg: 18px;
+  --font-size-base: 16px;
+  --font-size-xs: 12px;
+
+  /* Colors */
+  --color-gainsboro-100: #d9d9d9;
+  --color-black: #000;
+  --color-dimgray: #747474;
+  --color-firebrick: #a51e1e;
+
+  /* Gaps */
+  --gap-5xl: 24px;
+  --gap-8xs: 5px;
+
+  /* Paddings */
+  --padding-5xl: 24px;
+  --padding-5xs: 8px;
+  --padding-base: 16px;
+
+  /* Border radiuses */
+  --br-7xs: 6px;
+  --br-11xs: 2px;
+}
