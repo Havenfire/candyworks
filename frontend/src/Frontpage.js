@@ -164,7 +164,10 @@ function Frontpage() {
               {[img1, img2, img3, img4, img5].map((imgSrc, index) => (
                 <button key={index} className="image-button" onClick={() => handleImageClick(`Candy ${index + 1}`)}>
                   <img src={imgSrc} alt={`Candy ${index + 1}`} />
+                  <p>{index + 1}</p>
+
                 </button>
+
               ))}
             </div>
           </div>
