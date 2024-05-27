@@ -116,14 +116,16 @@ function Frontpage() {
 
     let yourRecipes = {};
     exchangeInputs.forEach((exchange) => {
+
       // Ensure inputs and outputs are properly parsed and trimmed
-      // const inputs = exchange.left.split(',').map(s => s.trim()).filter(Boolean);
+      console.log("Input left", exchange.left)
       let inputs = exchange.left.split(',').map(s => s.trim()).filter(Boolean);
       let outputs = exchange.right.split(',').map(s => s.trim()).filter(Boolean);
       
       // Use the exchange ID as the main key
+      
       if (inputs.length > 0 && outputs.length > 0) {
-        yourRecipes[inputs] = outputs
+        yourRecipes[exchange.left.slice(0, -2)] = outputs
       }
     });
 
@@ -260,6 +262,7 @@ function Frontpage() {
                   dangerouslySetInnerHTML={{ __html: input.left }}
                   onFocus={() => setCurrentFocus(`exchange${index}Left`)}
                   onKeyDown={handleKeyDown}
+                  
                   tabIndex="0"
                 ></div>
                 <div

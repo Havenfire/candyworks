@@ -46,6 +46,7 @@ function bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, 
         }
 
         if (depth < maxDepth) {
+            //Your Recipe
             Object.entries(yourRecipes).forEach(([recipeKey, result]) => {
                 let recipe = recipeKey.split(', ');
                 if (recipe.every(component => currentState.filter(x => x === component).length >= recipe.filter(x => x === component).length)) {
@@ -62,6 +63,7 @@ function bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, 
                 }
             });
 
+            //Simple Exchange
             Object.entries(simpleExchange).forEach(([recipeKey, resultLists]) => {
                 let recipe = recipeKey.split(', ');
                 resultLists.forEach(singleVal => {
@@ -112,49 +114,29 @@ function findPathWithMostCandies(allPaths) {
 }
 
 // let startingComponents = [
-//     'P', 'P', 'P', 'P', 'P', 'P', 'P',
-//     'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G',
-//     'L', 'L', 'L', 'L',
-//     'R', 'R', 'R', 'R', 'R',
+//     "B", "B", 'B', 
+//     "P", "P", 
+//     "Y", "Y", "Y", "Y", 
+//     "O", "O", "O", "O",
+//     "R", "R", 'R', "R", "R", "R", "R",
 // ];
 
 // let yourRecipes = {
-//     "G, G, L": ["B", "P", "P"],
-//     "P, G": ["B", "B", "B"],
-//     "L, L, R": ["B", "P", "P"],
-//     "B, P, P": ["G", "G", "R"],
-// };
-
-// let simpleExchange = {
-//     "B, B, B": ["P", "G", "L", "R"],
-//     "P, P, P": ["B", "G", "L", "R"],
-//     "G, G, G": ["B", "P", "L", "R"],
-//     "L, L, L": ["B", "P", "G", "R"],
-//     "R, R, R": ["B", "P", "G", "L"],
+//     "B, P, P": ["Y", "O", "O", "R"],
+//     "P, O": ["B", "B", "B", "B"],
+//     "P, R, R": ["Y", "Y", "Y", "Y"],
 // };
 
 // let targetComponents = [
-//     'B', 'B', 'B', 'B', 'B',
-//     'P',
-//     'G', 'G', 'G', 'G',
-//     'L', 'L', 'L', 'L',
-//     'R', 'R',
+//     "B", "B", "B", "B", "B", "B", 
+//     "P", "P", 
+//     "Y", "Y", 
+//     "O", "O", "O", "O",
 // ];
 
-// let maxCandies = 24;
-// // let maxDepth = 5;
+// let maxCandies = 20;
+// let maxDepth = 5;
 
-
-// let startingComponents = [
-//     "B", "P", "Y", "R",
-// ]
-
-// let targetComponents = [
-//     "B", "P", "Y", "O",
-// ]
-// let yourRecipes = {
-//     "R": ["O"]
-// }
 
 // let simpleExchange = {
 //     "B, B, B": ["P", "Y", "O", "R"],
@@ -164,8 +146,6 @@ function findPathWithMostCandies(allPaths) {
 //     "R, R, R": ["B", "P", "Y", "O"],
 // };
 
-// let maxCandies = 20
-// let maxDepth = 5
 
 // let [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
 // console.log("SOLUTION", found, maxPath)
