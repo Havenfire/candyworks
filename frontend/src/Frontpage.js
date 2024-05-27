@@ -26,11 +26,11 @@ function Frontpage() {
   const editableDivRef = useRef(null);
   const [currentFocus, setCurrentFocus] = useState("");
 
+  const candyNames = { '1': 'B', '2': 'P', '3': 'Y', '4': 'O', '5': 'R' };
 
 
   function handleKeyDown(event) {
     const key = event.key;
-    const candyNames = { '1': 'B', '2': 'P', '3': 'Y', '4': 'O', '5': 'R' };
 
     if (candyNames[key]) {
       event.preventDefault(); // Prevent the default key press behavior
@@ -174,8 +174,8 @@ function Frontpage() {
               {[img1, img2, img3, img4, img5].map((imgSrc, index) => (
                 <button key={index} className="image-button" onClick={() => handleImageClick(`Candy ${index + 1}`)}>
                   <img src={imgSrc} alt={`Candy ${index + 1}`} />
-                  <p>{index + 1}</p>
-
+                  <p>{index + 1} = {candyNames[index + 1]}</p>
+                  
                 </button>
 
               ))}
