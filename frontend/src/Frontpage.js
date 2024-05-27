@@ -101,6 +101,11 @@ function Frontpage() {
       editableDivRef.current.focus();
     }, 0);
   }
+  const formatNestedArray = (nestedArray) => {
+    return nestedArray.map(group =>
+      group.map(subgroup => subgroup.join('')).join(' ')
+    ).join(', ');
+  };
 
   const handleSubmit = () => {
     // Parsing startingComponents and targetComponents with spaces and commas removed
@@ -127,7 +132,10 @@ function Frontpage() {
       if (inputs.length > 0 && outputs.length > 0) {
         yourRecipes[exchange.left.slice(0, -2)] = outputs
       }
+
+      
     });
+
 
 
     const simpleExchange = {
@@ -139,7 +147,7 @@ function Frontpage() {
     };
 
     const maxCandies = parseInt(candyCount, 10) || 20; 
-    const maxDepth = 5;
+    const maxDepth = 6;
 
     let [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
 
@@ -199,7 +207,7 @@ function Frontpage() {
                 {bfsResult.found ? (
                   <div>
                     <h2>Results Found:</h2>
-                    <pre>{JSON.stringify(bfsResult.maxPath, null, 2)}</pre>
+                    <pre>{formatNestedArray(bfsResult.maxPath)}</pre>
                   </div>
                 ) : (
                   <p>No paths found matching the criteria.</p>
