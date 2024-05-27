@@ -147,7 +147,7 @@ function Frontpage() {
     };
 
     const maxCandies = parseInt(candyCount, 10) || 20; 
-    const maxDepth = 6;
+    const maxDepth = 5;
 
     let [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
 
