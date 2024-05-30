@@ -17,14 +17,21 @@ class Queue {
     }
 }
 
+function hasRequiredComponents(currentState, requirements) {
+    return requirements.every(component => 
+        currentState.filter(x => x === component).length >= requirements.filter(x => x === component).length);
+}
+
+function applyRecipe(currentState, recipe, result) {
+    const newState = currentState.slice();
+    recipe.forEach(component => {
+        newState.splice(newState.indexOf(component), 1);
+    });
+    newState.push(...result);
+    return newState;
+}
+
 function bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth) {
-    console.log("BFS function called");
-    console.log("Starting Components:", startingComponents);
-    console.log("Target Components:", targetComponents);
-    console.log("Max Depth:", maxDepth);
-    console.log("Max Candies:", maxCandies);
-    console.log("yourRecipes:", yourRecipes);
-    console.log("simpleExchange:", simpleExchange);
     
     let queue = new Queue();
     queue.enqueue([startingComponents, [], 0]); // Add depth information to the queue
@@ -99,6 +106,8 @@ function bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, 
 
 
 function findPathWithMostCandies(allPaths) {
+
+
     let maxRemainingCandies = -1;
     let pathWithMostCandies = null;
 
@@ -113,40 +122,43 @@ function findPathWithMostCandies(allPaths) {
     return [pathWithMostCandies, maxRemainingCandies];
 }
 
-// let startingComponents = [
-//     "B", "B", 'B', 
-//     "P", "P", 
-//     "Y", "Y", "Y", "Y", 
-//     "O", "O", "O", "O",
-//     "R", "R", 'R', "R", "R", "R", "R",
-// ];
+let startingComponents = [
+    "B", "B", 'B', 
+    "P", "P", 
+    "Y", "Y", "Y", "Y", 
+    "O", "O", "O", "O",
+    "R", "R", 'R', "R", "R", "R", "R",
+];
 
-// let yourRecipes = {
-//     "B, P, P": ["Y", "O", "O", "R"],
-//     "P, O": ["B", "B", "B", "B"],
-//     "P, R, R": ["Y", "Y", "Y", "Y"],
-// };
+let yourRecipes = {
+    "B, P, P": ["Y", "O", "O", "R"],
+    "P, O": ["B", "B", "B", "B"],
+    "P, R, R": ["Y", "Y", "Y", "Y"],
+};
 
-// let targetComponents = [
-//     "B", "B", "B", "B", "B", "B", 
-//     "P", "P", 
-//     "Y", "Y", 
-//     "O", "O", "O", "O",
-// ];
+let targetComponents = [
+    "B", "B", "B", "B", "B", "B", 
+    "P", "P", 
+    "Y", "Y", 
+    "O", "O", "O", "O",
+];
 
-// let maxCandies = 20;
-// let maxDepth = 5;
+let maxCandies = 20;
+let maxDepth = 5;
 
 
-// let simpleExchange = {
-//     "B, B, B": ["P", "Y", "O", "R"],
-//     "P, P, P": ["B", "Y", "O", "R"],
-//     "Y, Y, Y": ["B", "P", "O", "R"],
-//     "O, O, O": ["B", "P", "Y", "R"],
-//     "R, R, R": ["B", "P", "Y", "O"],
-// };
+let simpleExchange = {
+    "B, B, B": ["P", "Y", "O", "R"],
+    "P, P, P": ["B", "Y", "O", "R"],
+    "Y, Y, Y": ["B", "P", "O", "R"],
+    "O, O, O": ["B", "P", "Y", "R"],
+    "R, R, R": ["B", "P", "Y", "O"],
+};
 
 
 // let [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
 // console.log("SOLUTION", found, maxPath)
-export default bfs;
+// console.log(maxPath)
+// export default Queue;
+
+module.exports = {Queue}
