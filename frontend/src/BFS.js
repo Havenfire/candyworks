@@ -1,4 +1,4 @@
-class Queue {
+export class Queue {
     constructor() {
         this.items = [];
     }
@@ -17,21 +17,21 @@ class Queue {
     }
 }
 
-function hasRequiredComponents(currentState, requirements) {
-    return requirements.every(component => 
-        currentState.filter(x => x === component).length >= requirements.filter(x => x === component).length);
-}
+// function hasRequiredComponents(currentState, requirements) {
+//     return requirements.every(component => 
+//         currentState.filter(x => x === component).length >= requirements.filter(x => x === component).length);
+// }
 
-function applyRecipe(currentState, recipe, result) {
-    const newState = currentState.slice();
-    recipe.forEach(component => {
-        newState.splice(newState.indexOf(component), 1);
-    });
-    newState.push(...result);
-    return newState;
-}
+// function applyRecipe(currentState, recipe, result) {
+//     const newState = currentState.slice();
+//     recipe.forEach(component => {
+//         newState.splice(newState.indexOf(component), 1);
+//     });
+//     newState.push(...result);
+//     return newState;
+// }
 
-function bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth) {
+export default function bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth) {
     
     let queue = new Queue();
     queue.enqueue([startingComponents, [], 0]); // Add depth information to the queue
@@ -159,6 +159,6 @@ let simpleExchange = {
 // let [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
 // console.log("SOLUTION", found, maxPath)
 // console.log(maxPath)
-// export default Queue;
 
-module.exports = {Queue}
+// export default bfs
+// module.exports = {Queue, bfs}
