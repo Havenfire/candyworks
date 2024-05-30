@@ -6,9 +6,7 @@ import img2 from './images/shade_shore_sugarworms.png';
 import img3 from './images/skywrath_squawksicles.png';
 import img4 from './images/goldlake_glitterfish.png';
 import img5 from './images/oglodi_trail_jerky.png';
-
 import bfs from './bfs.js';
-
 
 function Frontpage() {
   const [inputValue, setInputValue] = useState("");

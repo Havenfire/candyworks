@@ -97,6 +97,7 @@ export default function bfs(startingComponents, yourRecipes, simpleExchange, tar
         return [false, allPaths]
     else{
         let [pathWithMostCandies, maxRemainingCandies] = findPathWithMostCandies(allPaths);
+        // let [pathWithMostCandies] = findPathWithMostCandies(allPaths);
         return [true, allPaths, pathWithMostCandies]
     }
 
@@ -122,38 +123,38 @@ function findPathWithMostCandies(allPaths) {
     return [pathWithMostCandies, maxRemainingCandies];
 }
 
-let startingComponents = [
-    "B", "B", 'B', 
-    "P", "P", 
-    "Y", "Y", "Y", "Y", 
-    "O", "O", "O", "O",
-    "R", "R", 'R', "R", "R", "R", "R",
-];
+// let startingComponents = [
+//     "B", "B", 'B', 
+//     "P", "P", 
+//     "Y", "Y", "Y", "Y", 
+//     "O", "O", "O", "O",
+//     "R", "R", 'R', "R", "R", "R", "R",
+// ];
 
-let yourRecipes = {
-    "B, P, P": ["Y", "O", "O", "R"],
-    "P, O": ["B", "B", "B", "B"],
-    "P, R, R": ["Y", "Y", "Y", "Y"],
-};
+// let yourRecipes = {
+//     "B, P, P": ["Y", "O", "O", "R"],
+//     "P, O": ["B", "B", "B", "B"],
+//     "P, R, R": ["Y", "Y", "Y", "Y"],
+// };
 
-let targetComponents = [
-    "B", "B", "B", "B", "B", "B", 
-    "P", "P", 
-    "Y", "Y", 
-    "O", "O", "O", "O",
-];
+// let targetComponents = [
+//     "B", "B", "B", "B", "B", "B", 
+//     "P", "P", 
+//     "Y", "Y", 
+//     "O", "O", "O", "O",
+// ];
 
-let maxCandies = 20;
-let maxDepth = 5;
+// let maxCandies = 20;
+// let maxDepth = 5;
 
 
-let simpleExchange = {
-    "B, B, B": ["P", "Y", "O", "R"],
-    "P, P, P": ["B", "Y", "O", "R"],
-    "Y, Y, Y": ["B", "P", "O", "R"],
-    "O, O, O": ["B", "P", "Y", "R"],
-    "R, R, R": ["B", "P", "Y", "O"],
-};
+// let simpleExchange = {
+//     "B, B, B": ["P", "Y", "O", "R"],
+//     "P, P, P": ["B", "Y", "O", "R"],
+//     "Y, Y, Y": ["B", "P", "O", "R"],
+//     "O, O, O": ["B", "P", "Y", "R"],
+//     "R, R, R": ["B", "P", "Y", "O"],
+// };
 
 
 // let [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
