@@ -14,6 +14,29 @@ test('enqueue and dequeue operations', () => {
 })
 
 
+test('Simple bfs operations', () => {
+    const startingComponents = ["A", "B"];
+    const yourRecipes = {
+        "A, B": ["C", "D"],
+    };
+    let simpleExchange = {
+        "A, A, A": ["B", "C", "D", "E"],
+        "B, B, B": ["A", "C", "D", "E"],
+        "C, C, C": ["A", "B", "D", "E"],
+        "D, D, D": ["A", "B", "C", "E"],
+        "E, E, E": ["A", "B", "C", "D"],
+    };
+    const targetComponents = ["C", "D"];
+    const maxCandies = 10;
+    const maxDepth = 3;
+    const [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
+    expect(found).toBe(true);
+    expect(allPaths.length).toBeGreaterThan(0);
+    expect(maxPath).toStrictEqual([
+        [['A', 'B'], ['C', 'D']],
+    ]);
+});
+
 test('Complex bfs operations', () => {
 
     let startingComponents = [
@@ -51,50 +74,14 @@ test('Complex bfs operations', () => {
 
     let [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
 
+    expect(found).toBe(true)
     expect(maxPath).toStrictEqual([
         [['R', 'R', 'R'], ['P']],
         [['P', 'O'], ['B', 'B', 'B', 'B']],
         [['R', 'R', 'R'], ['O']]
     ])
 
-
-
 })
 
 
 
-//         const insufficientRecipe = ["A", "A", "A"];
-//         expect(componentSufficient(currentState, recipe)).toBe(true);
-//         expect(componentSufficient(currentState, insufficientRecipe)).toBe(false);
-//     });
-// });
-
-
-// describe('applyRecipe function', () => {
-//     test('applies recipe to the current state', () => {
-//         const currentState = ["A", "A", "B", "C"];
-//         const recipe = ["A", "B"];
-//         const result = ["D", "E"];
-//         const newState = applyRecipe(currentState, recipe, result);
-//         expect(newState).toEqual(["A", "C", "D", "E"]);
-//     });
-// });
-
-// describe('BFS functionality', () => {
-//     test('returns correct path for simple scenario', () => {
-//         const startingComponents = ["A", "B"];
-//         const yourRecipes = {
-//             "A, B": ["C", "D"],
-//         };
-//         const simpleExchange = {
-//             "A, B": ["E"],
-//         };
-//         const targetComponents = ["C", "D"];
-//         const maxCandies = 10;
-//         const maxDepth = 2;
-//         const [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
-//         expect(found).toBe(true);
-//         expect(allPaths.length).toBeGreaterThan(0);
-//         expect(maxPath).toContainEqual(["A, B", ["C", "D"]]);
-//     });
-// });

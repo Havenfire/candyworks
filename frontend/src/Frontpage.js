@@ -102,12 +102,21 @@ function Frontpage() {
     }, 0);
   }
   const formatNestedArray = (nestedArray) => {
+    console.log(nestedArray)
+    if(nestedArray === undefined){
+      return ""
+    }
+
     return nestedArray.map(group =>
       group.map(subgroup => subgroup.join('')).join(' ')
     ).join(', ');
   };
 
   const handleSubmit = () => {
+    if(exchangeInputs.length === 0){
+      return
+    }
+
     // Parsing startingComponents and targetComponents with spaces and commas removed
     const parseComponents = (input) => input.split(',')
       .map(s => s.trim().replace(/\s+/g, '')) // Remove all spaces
@@ -250,7 +259,7 @@ function Frontpage() {
                   setCandyCount(""); // Allow clear
                 }
               }}
-              placeholder="Enter Max Candies (1-30) (Default 20)"
+              placeholder="Enter Max Candies (20-30) (Default 20)"
               className="candy-count-input"
             />
           </div>
