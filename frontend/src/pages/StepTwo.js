@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './StepTwo.css';
 import '../global.css';
+import { WizardContext } from '../WizardContext';
+
 import { COLORS } from '../values/colors';
 
 const StepTwo = () => {
   const navigate = useNavigate();
+  const { inventoryLimit, setInventoryLimit } = useContext(WizardContext); // Corrected to use WizardContext
+
   const [value, setValue] = useState(20);
+
+  useEffect(() => {
+    setValue(inventoryLimit || 20);
+  }, [inventoryLimit]);
 
   const increment = () => {
     if (value < 30) {
@@ -21,11 +29,13 @@ const StepTwo = () => {
     }
   };
   const goToNext = () => {
+    setInventoryLimit(value); // Update the context when leaving the page
     navigate('/step3');
   };
 
   const goToPrevious = () => {
-    navigate('/step1  '); // Replace '/previous-route' with the actual route
+    setInventoryLimit(value); // Update the context when leaving the page
+    navigate('/step1'); // Corrected the route string
   };
 
   return (

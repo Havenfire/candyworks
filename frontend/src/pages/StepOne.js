@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { WizardContext } from '../WizardContext';
 
 import './StepOne.css';
 import '../global.css';
@@ -10,35 +11,13 @@ import img3 from '../images/skywrath_squawksicles.png';
 import img4 from '../images/goldlake_glitterfish.png';
 import img5 from '../images/oglodi_trail_jerky.png';
 
-const WizardContainer = () => {
-  const [inputValues, setInputValues] = useState({
-    targetCandies: [],
-    maxCandies: 0,
-    startingCandies: [],
-    recipes: {},
-  });
-
-  const updateInputValue = (step, value) => {
-    setInputValues((prevState) => ({
-      ...prevState,
-      [`${step}Value`]: value,
-    }));
-  };
-
-};
-
 const StepOne = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const menuRef = useRef(null);
-  const wizardContainerRef = useRef({
-    targetCandies: [],
-    maxCandies: 0,
-    startingCandies: [],
-    recipes: {},
-  });
-  // Create an array of objects representing the candies
+  const { startingCandies, setStartingCandies } = useContext(WizardContext);
+
   const candies = [
     { id: 1, image: img1, name: "Midgate Mudball" },
     { id: 2, image: img2, name: "Shade Shore Sugarworms" },
@@ -47,7 +26,6 @@ const StepOne = () => {
     { id: 5, image: img5, name: "Oglodi Trail Jerky" },
   ];
 
-  // Sort the candies array by ID
   candies.sort((a, b) => a.id - b.id);
 
   const toggleMenu = () => {
@@ -60,7 +38,7 @@ const StepOne = () => {
     if (selectedItems.length < 30) {
       setSelectedItems(newSelectedItems);
     }
-    setIsMenuOpen(false); // Close menu after selection
+    setIsMenuOpen(false);
   };
 
   const removeItem = (index) => {
@@ -99,12 +77,20 @@ const StepOne = () => {
     };
   });
 
+
+  useEffect(() => {
+    setSelectedItems(startingCandies || []);
+  }, [startingCandies]);
+  
+
   const goToNext = () => {
-    navigate('/step2', { state: { wizardContainer: wizardContainerRef.current } });
+    setStartingCandies(selectedItems);
+    navigate('/step2');
   };
 
   const goToPrevious = () => {
-    navigate('/step1', { state: { wizardContainer: wizardContainerRef.current } });
+    setStartingCandies(selectedItems);
+    navigate('/step1');
   };
 
   return (
@@ -141,7 +127,7 @@ const StepOne = () => {
             {Array.from({ length: 3 }).map((_, row) => {
               const startIndex = row * 10;
               const endIndex = startIndex + 10;
-              if (startIndex < selectedItems.length) { // Only create the row if items exist for it
+              if (startIndex < selectedItems.length) {
                 return (
                   <div key={row} className="row-container">
                     {selectedItems.slice(startIndex, endIndex).map((item, index) => (
@@ -169,13 +155,11 @@ const StepOne = () => {
                     ))}
                   </div>
                 )}
-                
               </div>
               <div className='spacer'>
-              X
+                X
+              </div>
             </div>
-            </div>
-
           </div>
         </div>
 

@@ -1,0 +1,264 @@
+.recipe-items-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 60px;
+}
+
+.selected-item-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.recipe-list-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.recipe-input-container,
+.output-input-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.recipe-input-items,
+.output-input-items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.recipe-input,
+.output-input {
+    width: 80%;
+    margin-top: 10px;
+}
+
+.frontpage-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+    /* Adjust height as needed */
+    border: 1px solid black;
+  }
+  
+  .content {
+    display: flex;
+    flex: 1.3;
+  }
+  
+  
+  .central-content-top {
+    flex: 1.3;
+    display: flex;
+    flex-direction: column;
+    outline: 1px solid green;
+    height: 90%;
+  
+  }
+  
+  .central-content {
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    height: 100%;
+    /* Ensure it takes up the full height of its container */
+  }
+  
+  .central-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    /* Add width or max-width if you want to control the size of the box */
+    width: 50%;
+    /* Example: sets the width of the central-box. Adjust as needed. */
+  }
+  
+  .central-box p {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .central-box input[type="text"] {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  
+  .additional-box {
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  
+    margin: 10px;
+    border: 1px solid black;
+  }
+  
+  .images-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    /* Adjusts space between the title and images */
+  }
+  
+  .image-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .image-button img {
+    width: 50px;
+    /* Adjusts the size of the images */
+    height: 50px;
+    margin: 0 10px;
+    /* Adjusts spacing between images */
+  }
+  
+  .right-content {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically if needed */
+    flex-direction: column; /* Stack children vertically */
+    outline: 1px solid red;
+    height: 90%;
+  }
+  
+  
+  .right-box {
+    flex: .7;
+    border: 1px solid black;
+    margin: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .label-IO{
+    width: 100%;
+    border: 1px solid black;
+  
+  }
+  
+  .right-box-exchange {
+    width: 100%; 
+    max-width: 600px; 
+    margin: auto;
+    outline: 1px solid black;
+    height: 300px;
+  
+  }
+  
+  .exchange-div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  
+  .exchange-input {
+    width: 50%; /* Slightly less than half to fit side by side */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    text-align: left;
+    outline: 1px solid black;
+  }
+  
+  
+  .editable-div.placeholder {
+    color: #aaa;
+    /* Placeholder text color */
+  }
+  
+  /* Rest of the editable-div styles */
+  .editable-div {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 3px;
+    width: 80%;
+    margin: 10px 0;
+    cursor: text;
+    background-color: #f9f9f9;
+  }
+  
+  
+  .candy-count-input {
+    width: 80%; /* Match the width of your editable-div */
+    padding: 8px; /* Similar padding for consistency */
+    margin-top: 10px; /* Space from the contentEditable div */
+    border: 1px solid #ccc; /* Similar border style */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  
+  .submit-button {
+    margin-top: 20px; /* Adjust based on layout */
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Example color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049; /* Darker shade for hover effect */
+  }
+  
+  .align-left {
+    float: left;
+    text-align: left;
+    width: 50%;
+    outline: 1px solid black;
+    margin: 0;
+  }
+  .align-right {
+    float: right;
+    text-align: right;
+    width: 50%;
+    outline: 1px solid black;
+    margin: 0;
+  
+  }
+  
+  /* Additional styles to ensure the boxes don't get too small on smaller screens */
+  @media (min-width: 768px) {
+  
+    .central-box,
+    .right-box {
+      min-height: 150px;
+      /* Adjust as needed */
+    }
+  }

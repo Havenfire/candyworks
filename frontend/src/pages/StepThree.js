@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { WizardContext } from '../WizardContext';
 
 import './StepOne.css';
 import '../global.css';
@@ -15,6 +16,7 @@ const StepThree = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const menuRef = useRef(null);
+  const { targetCandies, setTargetCandies } = useContext(WizardContext);
 
   // Create an array of objects representing the candies
   const candies = [
@@ -77,12 +79,19 @@ const StepThree = () => {
     };
   });
 
+  useEffect(() => {
+    setSelectedItems(targetCandies || []);
+  }, [targetCandies]);
+  
+
   const goToNext = () => {
+    setTargetCandies(selectedItems);
     navigate('/step4');
   };
 
   const goToPrevious = () => {
-    navigate('/step2  '); // Replace '/previous-route' with the actual route
+    setTargetCandies(selectedItems);
+    navigate('/step2');
   };
 
   return (
