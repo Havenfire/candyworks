@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './StepTwo.css';
@@ -29,40 +29,41 @@ const StepTwo = () => {
   };
 
   return (
-    <div className="wizard-step-2">
+    <div className="wizard-main-box">
       <div className="the-crownfall-container">
         <p style={{ color: COLORS.red, fontSize: 24 }} className="the-crownfall">— The Crownfall —</p>
         <p style={{ fontSize: 56 }} className="candyworks-calculator">Candyworks Calculator</p>
       </div>
 
       <div className="frame-parent">
-        <div className="step-2-parent">
+        <div className="step-label">
           <div style={{ color: COLORS.red, fontSize: 16 }} className="the-crownfall-container">Step 2</div>
           <div style={{ fontSize: 32 }} className="what-candies-do">Enter Your Inventory Limit</div>
         </div>
         <div className="click-the-to-select-a-candy-parent">
-          <div style={{ color: COLORS.grey, fontSize: 14 }} className="click-the">
+          <div style={{ color: COLORS.grey, fontSize: 14 }} className="info-text">
             Select how many slots you have unlocked for your candy inventory. (Minimum 20, maximum 30)
           </div>
         </div>
         <div className="frame-wrapper">
-          <div className="frame-container">
-
-            <div className="wrapper">
+          <div className="frame-container-row">
+            <div className="big-wrapper">
               <button
-                className={`menu-button ${value === 20 ? 'faded' : ''}`}
+                className={`adj-button ${value === 20 ? 'faded' : ''}`}
                 onClick={decrement}
                 disabled={value === 20}
               >
                 -
               </button>
             </div>
+            
             <div className="text-wrapper">
               <input type="text" className="text-box" value={value} defaultValue={20} />
-            </div>
-            <div className="wrapper">
+            </div>  
+
+            <div className="big-wrapper">
               <button
-                className={`menu-button ${value === 30 ? 'faded' : ''}`}
+                className={`adj-button ${value === 30 ? 'faded' : ''}`}
                 onClick={increment}
                 disabled={value === 30}
               >

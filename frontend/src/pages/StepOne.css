@@ -1,10 +1,27 @@
+@font-face {
+  font-family: 'Reaver-Bold';
+  src: url('../fonts/Reaver-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'radiance';
+  src: url('../fonts/radiance.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .the-crownfall {
   margin: 0;
+  font-family: 'Reaver-Bold';
+
 }
 .candyworks-calculator {
   margin: 0;
   font-size: 56px;
   color: var(--color-black);
+  font-family: 'Reaver-Bold';
+
 }
 
 .the-crownfall-container,
@@ -17,7 +34,7 @@
   font-size: 32px;
   color: var(--color-black);
 }
-.step-1-parent {
+.step-label {
   align-self: stretch;
   display: flex;
   flex-direction: column;
@@ -27,7 +44,7 @@
   font-size: var(--font-size-base);
   color: var(--color-firebrick);
 }
-.click-the {
+.info-text{
   flex: 1;
   position: relative;
   font-weight: 600;
@@ -69,6 +86,14 @@
   align-self: stretch;
   gap: var(--gap-5xl);
   font-size: 14px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  font-family: "radiance";
+
 }
 .wrapper {
   width: 42px;
@@ -77,7 +102,7 @@
   background: linear-gradient(180deg, #f2f2f2, #dfdfdf);
   border: 1px solid var(--color-gainsboro-100);
   box-sizing: border-box;
-  padding: var(--padding-5xs) var(--padding-base);
+  padding: 7.3px 10px;
   position: relative;
   display: inline-block; /* Ensure the wrapper and button are inline */
   text-align: center; /* Center the button within the wrapper */
@@ -90,19 +115,25 @@
   padding: 0;
   font: inherit;
   cursor: pointer;
-  outline: inherit;
+  outline: inherit;  
+  font-family: 'radiance';
+
 }
 
 .frame-container {
   height: 66px;
-  justify-content: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+
 }
+
 .frame-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  position: relative;
   align-self: stretch;
   flex: 1;
   border-radius: var(--br-7xs);
@@ -114,7 +145,6 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;  /* Align items to the start of the row */
-  margin-bottom: 10px;     /* Space between rows */
 }
 
 .of-4 {
@@ -122,6 +152,8 @@
   position: relative;
   font-size: var(--font-size-base);
   font-weight: 600;
+  font-family: "radiance";
+
 }
 
 .previous-wrapper {
@@ -147,6 +179,8 @@
   font: inherit;
   cursor: pointer;
   outline: inherit;
+  font-family: "radiance";
+
 }
 .next-step-button {
   position: relative;
@@ -159,6 +193,8 @@
   font: inherit;
   cursor: pointer;
   outline: inherit;
+  font-family: "radiance";
+
 }
 .next-step-wrapper {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
@@ -173,7 +209,7 @@
 }
 .frame-parent,
 .of-4-parent,
-.wizard-step-1a {
+.wizard-main-box {
   display: flex;
   align-items: center;
   gap: var(--gap-5xl);
@@ -184,7 +220,7 @@
   justify-content: flex-end;
 }
 .frame-parent,
-.wizard-step-1a {
+.wizard-main-box {
   flex-direction: column;
   justify-content: flex-start;
   padding: var(--padding-5xl);
@@ -202,8 +238,10 @@
   color: var(--color-dimgray);
   padding: 24px;
   gap: 24px;
+  font-family: 'Reaver-Bold';
+
 }
-.wizard-step-1a {
+.wizard-main-box {
   width: 100%;
   position: relative;
   background: radial-gradient(50% 50% at 50% 50%, #fff, #f1f1f1);
@@ -212,7 +250,7 @@
   text-align: center;
   font-size: 24px;
   color: var(--color-firebrick);
-  font-family: var(--font-reaver);
+  font-family: var(--font-ra);
 }
 
 .menu {
@@ -225,6 +263,7 @@
   z-index: 10000; /* Ensure the menu is on top */
   padding: 10px;
   width: 500px;
+  
 }
 
 .menu-item {
@@ -238,7 +277,7 @@
   width: 100%;
   justify-content: flex-start;
   height: 64px;
-  font-family: 'Reaver';
+  font-family: 'radiance';
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
@@ -246,7 +285,7 @@
 }
 
 .menu-item:hover {
-  background-color: red; /* Change background color to red on hover */
+  background-color: #A51E1E; /* Change background color to red on hover */
   color: #FFFFFF;
 }
 
@@ -300,8 +339,16 @@
   outline: none;
   position: relative;
 }
-.extra-selected-items {
-  display: flex;
-  flex-direction: row; /* Stack vertically */
-  margin-top: 10px; /* Add some space above the vertical stack */
+
+.spacer {
+  background: none;
+  color: transparent; 
+  border: none;
+  padding: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  font-family: 'radiance';
+
 }

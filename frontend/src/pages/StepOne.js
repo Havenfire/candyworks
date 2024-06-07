@@ -10,12 +10,34 @@ import img3 from '../images/skywrath_squawksicles.png';
 import img4 from '../images/goldlake_glitterfish.png';
 import img5 from '../images/oglodi_trail_jerky.png';
 
+const WizardContainer = () => {
+  const [inputValues, setInputValues] = useState({
+    targetCandies: [],
+    maxCandies: 0,
+    startingCandies: [],
+    recipes: {},
+  });
+
+  const updateInputValue = (step, value) => {
+    setInputValues((prevState) => ({
+      ...prevState,
+      [`${step}Value`]: value,
+    }));
+  };
+
+};
+
 const StepOne = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const menuRef = useRef(null);
-
+  const wizardContainerRef = useRef({
+    targetCandies: [],
+    maxCandies: 0,
+    startingCandies: [],
+    recipes: {},
+  });
   // Create an array of objects representing the candies
   const candies = [
     { id: 1, image: img1, name: "Midgate Mudball" },
@@ -78,27 +100,27 @@ const StepOne = () => {
   });
 
   const goToNext = () => {
-    navigate('/step2');
+    navigate('/step2', { state: { wizardContainer: wizardContainerRef.current } });
   };
 
   const goToPrevious = () => {
-    navigate('/step1  '); // Replace '/previous-route' with the actual route
+    navigate('/step1', { state: { wizardContainer: wizardContainerRef.current } });
   };
 
   return (
-    <div className="wizard-step-1a">
+    <div className="wizard-main-box">
       <div className="the-crownfall-container">
         <p style={{ color: COLORS.red, fontSize: 24 }} className="the-crownfall">— The Crownfall —</p>
         <p style={{ fontSize: 56 }} className="candyworks-calculator">Candyworks Calculator</p>
       </div>
 
       <div className="frame-parent">
-        <div className="step-1-parent">
+        <div className="step-label">
           <div style={{ color: COLORS.red, fontSize: 16 }} className="the-crownfall-container">Step 1</div>
           <div style={{ fontSize: 32 }} className="what-candies-do">What candies do you want?</div>
         </div>
         <div className="click-the-to-select-a-candy-parent">
-          <div style={{ color: COLORS.grey, fontSize: 14 }} className="click-the">
+          <div style={{ color: COLORS.grey, fontSize: 14 }} className="info-text">
             Click the + to select a candy, or tap the matching shortcut key.
           </div>
           <div className="frame-group">
@@ -149,7 +171,11 @@ const StepOne = () => {
                 )}
                 
               </div>
+              <div className='spacer'>
+              X
             </div>
+            </div>
+
           </div>
         </div>
 

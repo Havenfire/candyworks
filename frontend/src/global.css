@@ -1,11 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Reaver:wght@600&display=swap");
 body {
   margin: 0;
   line-height: normal;
 }
 :root {
-  /* fonts */
-  --font-reaver: Reaver;
+
+  
 
   /* font sizes */
   --font-size-lg: 18px;
