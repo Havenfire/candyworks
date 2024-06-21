@@ -8,7 +8,12 @@ export const WizardProvider = ({ children }) => {
   const [inventoryLimit, setInventoryLimit] = useState(20); // Default value for inventory limit
   const [startingCandies, setStartingCandies] = useState([]); // Default value for starting candies
   const [targetCandies, setTargetCandies] = useState([]); // Default value for starting candies
-  const [recipes, setRecipes] = useState({});
+  const [recipes, setRecipes] = useState([
+    { id: 1, left: "", right: "" },
+    { id: 2, left: "", right: "" },
+    { id: 3, left: "", right: "" },
+    { id: 4, left: "", right: "" },
+  ]);
 
 
   return (

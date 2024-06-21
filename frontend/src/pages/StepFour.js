@@ -16,8 +16,8 @@ const StepFour = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const { recipes, setRecipes } = useContext(WizardContext);
-  const [inputValue, setInputValue] = useState("");
-  const [startingInputValue, setStartingInputValue] = useState("");
+  const [, setInputValue] = useState("");
+  const [, setStartingInputValue] = useState("");
 
   const [currentFocus, setCurrentFocus] = useState("");
   const [exchangeInputs, setExchangeInputs] = useState([
@@ -42,7 +42,7 @@ const StepFour = () => {
       const newItem = { ...newLists[listIndex] };
       const newCount = (newItem[side].match(/<img/g) || []).length;
       if (newCount < 4) {
-        newItem[side] = `${newItem[side]}<img src="${image}" alt="Candy" style="width: 30px; height: 30px;" /> `;
+        newItem[side] = `${newItem[side]}<img src="${image}" alt="${image}" style="width: 30px; height: 30px;" /> `;
         newLists[listIndex] = newItem;
       }
       return newLists;
@@ -158,14 +158,14 @@ const StepFour = () => {
         </div>
         <div className="click-the-to-select-a-candy-parent">
           <div style={{ color: COLORS.grey, fontSize: 14 }} className="info-text">
-            Click the + to select a candy, or tap the matching shortcut key.
+            Inputs go in the left, Outputs go on the right. Tap the corresponding key to insert, backspace to delete.
           </div>
           <div className="frame-group">
             {candies.map((candy, index) => (
               <div key={index} className="goldlake-glitterfish-parent">
                 <img
                   className="goldlake-glitterfish-icon"
-                  alt={`Candy ${candy.id}`}
+                  alt={`ID: ${candy.id}`}
                   src={candy.image}
                 />
                 <div className="div">= {candy.id}</div>
