@@ -72,7 +72,7 @@ test('Complex bfs operations', () => {
         "R, R, R": ["B", "P", "Y", "O"],
     };
 
-    let [found, allPaths, maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
+    let [found, , maxPath] = bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth);
 
     expect(found).toBe(true)
     expect(maxPath).toStrictEqual([

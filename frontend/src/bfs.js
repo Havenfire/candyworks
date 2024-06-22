@@ -88,7 +88,7 @@ function bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, 
     if( allPaths.length === 0)
         return [false, allPaths]
     else{
-        let [pathWithMostCandies, maxRemainingCandies] = findPathWithMostCandies(allPaths);
+        let [pathWithMostCandies] = findPathWithMostCandies(allPaths);
         return [true, allPaths, pathWithMostCandies]
     }
 
