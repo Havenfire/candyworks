@@ -170,18 +170,18 @@ function Frontpage() {
 
 
   return (
-    <div className="frontpage-container">
-      <div className="header">
+    <div className="OLDCSS-frontpage-container">
+      <div className="OLDCSS-header">
         <h1>The Crownfall Candyworks</h1>
       </div>
-      <div className="content">
+      <div className="OLDCSS-content">
         <div className='central-content-top'>
 
-          <div className="additional-box">
+          <div className="OLDCSS-additional-box">
             <h1>Candies</h1>
-            <div className="images-container">
+            <div className="OLDCSS-images-container">
               {[img1, img2, img3, img4, img5].map((imgSrc, index) => (
-                <button key={index} className="image-button" onClick={() => handleImageClick(`Candy ${index + 1}`)}>
+                <button key={index} className="OLDCSS-image-button" onClick={() => handleImageClick(`Candy ${index + 1}`)}>
                   <img src={imgSrc} alt={`Candy ${index + 1}`} />
                   <p>{index + 1} = {candyNames[index + 1]}</p>
                   
@@ -191,8 +191,8 @@ function Frontpage() {
             </div>
           </div>
 
-          <div className="central-content">
-            <div className="central-box">
+          <div className="OLDCSS-central-content">
+            <div className="OLDCSS-central-box">
               <p>Target Candies</p>
               <div
                 className={`editable-div ${isPlaceholderVisible ? 'placeholder' : ''}`}
@@ -210,9 +210,9 @@ function Frontpage() {
                 onFocus={handleFocus} // Ensure this calls the updated handleFocus
                 tabIndex="0"
               />
-              <button onClick={handleSubmit} className="submit-button">Submit Candies</button>
+              <button onClick={handleSubmit} className="OLDCSS-submit-button">Submit Candies</button>
               {/* Results Section */}
-              <div className="results-display">
+              <div className="OLDCSS-results-display">
                 {bfsResult.found ? (
                   <div>
                     <h2>Results Found:</h2>
@@ -227,8 +227,8 @@ function Frontpage() {
           </div>
 
         </div>
-        <div className="right-content">
-          <div className="right-box">
+        <div className="OLDCSS-right-content">
+          <div className="OLDCSS-right-box">
             <p>Starting Candies</p>
 
             <div
@@ -260,7 +260,7 @@ function Frontpage() {
                 }
               }}
               placeholder="Enter Max Candies (20-30) (Default 20)"
-              className="candy-count-input"
+              className="OLDCSS-candy-count-input"
             />
           </div>
           <p>Exchange Candies</p>
@@ -269,12 +269,12 @@ function Frontpage() {
             <p className='align-right'>Output</p>
 
           </div>
-          <div className="right-box-exchange">
+          <div className="OLDCSS-right-box-exchange">
 
             {exchangeInputs.map((input, index) => (
-              <div key={index} className="exchange-div">
+              <div key={index} className="OLDCSS-exchange-div">
                 <div
-                  className="editable-div exchange-input left"
+                  className="OLDCSS-editable-div exchange-input left"
                   contentEditable
                   dangerouslySetInnerHTML={{ __html: input.left }}
                   onFocus={() => setCurrentFocus(`exchange${index}Left`)}
@@ -283,7 +283,7 @@ function Frontpage() {
                   tabIndex="0"
                 ></div>
                 <div
-                  className="editable-div exchange-input right"
+                  className="OLDCSS-editable-div exchange-input right"
                   contentEditable
                   dangerouslySetInnerHTML={{ __html: input.right }}
                   onFocus={() => setCurrentFocus(`exchange${index}Right`)}

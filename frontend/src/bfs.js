@@ -1,4 +1,4 @@
-class Queue {
+export class Queue {
     constructor() {
         this.items = [];
     }
@@ -16,6 +16,7 @@ class Queue {
         return this.items.length === 0;
     }
 }
+
 
 function bfs(startingComponents, yourRecipes, simpleExchange, targetComponents, maxCandies, maxDepth) {
     console.log("BFS function called");

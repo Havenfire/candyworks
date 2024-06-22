@@ -7,6 +7,7 @@ import StepTwo from './pages/StepTwo';
 import StepThree from './pages/StepThree';
 import StepFour from './pages/StepFour';
 import StepFive from './pages/StepFive';
+import Frontpage from './Frontpage';
 
 export const UserContext = createContext(null);
 
@@ -20,7 +21,7 @@ function App() {
           <Route path="/step3" element={<StepThree/>}/>
           <Route path="/step4" element={<StepFour/>}/>
           <Route path="/step5" element={<StepFive/>}/>
-          <Route path="/oldsite" element={<StepFive/>}/>
+          <Route path="/oldsite" element={<Frontpage/>}/>
           <Route path="/" element={<StepOne/>}/>
         </Routes>
       </WizardProvider>
