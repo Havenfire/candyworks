@@ -13,19 +13,21 @@ const StepFive = () => {
     const navigate = useNavigate();
     const menuRef = useRef(null);
     const contextOutput = useContext(WizardContext);
-    let recipes = contextOutput.recipesLetters;
+    let recipesLetters = contextOutput.recipesLetters;
+
     let startingCandies = contextOutput.startingCandies;
     let targetCandies = contextOutput.targetCandies;
     let inventoryLimit = contextOutput.inventoryLimit;
     const [bfsResult, setBfsResult] = useState({ found: false, allPaths: [], maxPath: [] });
 
     const candies = [
-        { id: 1, image: img1, name: "Midgate Mudball", color: "B"},
-        { id: 2, image: img2, name: "Shade Shore Sugarworms", color: "P"},
+        { id: 1, image: img1, name: "Midgate Mudball", color: "B" },
+        { id: 2, image: img2, name: "Shade Shore Sugarworms", color: "P" },
         { id: 3, image: img3, name: "Skywrath Squawksicles", color: "Y" },
         { id: 4, image: img4, name: "Goldlake Glitterfish", color: "O" },
         { id: 5, image: img5, name: "Oglodi Trail Jerky", color: "R" },
     ];
+
     const simpleExchange = {
         "B, B, B": ["P", "Y", "O", "R"],
         "P, P, P": ["B", "Y", "O", "R"],
@@ -39,21 +41,21 @@ const StepFive = () => {
         let input_startingC = []
         let input_targetC = []
 
-        for(let i = 0; i < startingCandies.length; i++){
+        for (let i = 0; i < startingCandies.length; i++) {
             input_startingC.push(candies[startingCandies[i]["id"] - 1]["color"])
         }
 
-        for(let i = 0; i < targetCandies.length; i++){
+        for (let i = 0; i < targetCandies.length; i++) {
             input_targetC.push(candies[targetCandies[i]["id"] - 1]["color"])
         }
 
 
         let input_recipes = {};
-        input_recipes[recipes[0]["left"]] = recipes[0]["right"];
-        input_recipes[recipes[1]["left"]] = recipes[1]["right"];
-        input_recipes[recipes[2]["left"]] = recipes[2]["right"];
-        input_recipes[recipes[3]["left"]] = recipes[3]["right"];
-        
+        input_recipes[recipesLetters[0]["left"]] = recipesLetters[0]["right"];
+        input_recipes[recipesLetters[1]["left"]] = recipesLetters[1]["right"];
+        input_recipes[recipesLetters[2]["left"]] = recipesLetters[2]["right"];
+        input_recipes[recipesLetters[3]["left"]] = recipesLetters[3]["right"];
+
         let [found, allPaths, maxPath] = bfs(input_startingC, input_recipes, simpleExchange, input_targetC, inventoryLimit, 5);
         setBfsResult({ found, allPaths, maxPath });
     };
@@ -63,15 +65,25 @@ const StepFive = () => {
     };
 
     const formatNestedArray = (nestedArray) => {
-        console.log(nestedArray)
-        if(nestedArray === undefined){
-          return ""
+        console.log(nestedArray);
+        if (nestedArray === undefined) {
+            return null; // Return null for React to render nothing
         }
     
-        return nestedArray.map(group =>
-          group.map(subgroup => subgroup.join('')).join(' ')
-        ).join(', ');
-      };
+        return nestedArray.map((group, groupIndex) => (
+            <div key={groupIndex}>
+                {group.map((subgroup, subgroupIndex) => (
+                    <div key={subgroupIndex} style={{ display: 'inline-block', margin: '5px' }}>
+                        {subgroup.map(letter => {
+                            const candy = candies.find(c => c.color === letter);
+                            return candy ? <img src={candy.image} alt={candy.name} key={candy.id} style={{ width: '50px', height: '50px' }} /> : null;
+                        })}
+                    </div>
+                ))}
+            </div>
+        ));
+    };
+    
 
     return (
         <div className="wizard-main-box">
