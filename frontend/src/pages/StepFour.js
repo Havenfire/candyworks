@@ -13,9 +13,8 @@ import img5 from '../images/oglodi_trail_jerky.png';
 
 const StepFour = () => {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
   const { recipes, setRecipes } = useContext(WizardContext);
+  const { recipesLetters, setRecipesLetters } = useContext(WizardContext);
   const [, setInputValue] = useState("");
   const [, setStartingInputValue] = useState("");
 
@@ -27,16 +26,71 @@ const StepFour = () => {
     { id: 4, left: "", right: "" },
   ]);
 
-  const candies = [
-    { id: 1, image: img1, name: "Midgate Mudball" },
-    { id: 2, image: img2, name: "Shade Shore Sugarworms" },
-    { id: 3, image: img3, name: "Skywrath Squawksicles" },
-    { id: 4, image: img4, name: "Goldlake Glitterfish" },
-    { id: 5, image: img5, name: "Oglodi Trail Jerky" },
-  ];
+  const [left1, setLeft1] = useState("");
+  const [left2, setLeft2] = useState("");
+  const [left3, setLeft3] = useState("");
+  const [left4, setLeft4] = useState("");
+  const [right1, setRight1] = useState([]);
+  const [right2, setRight2] = useState([]);
+  const [right3, setRight3] = useState([]);
+  const [right4, setRight4] = useState([]);
 
-  const addItem = (image, listIndex, side) => {
-    
+  const candies = [
+    { id: 1, image: img1, name: "Midgate Mudball", color: "B"},
+    { id: 2, image: img2, name: "Shade Shore Sugarworms", color: "P"},
+    { id: 3, image: img3, name: "Skywrath Squawksicles", color: "Y" },
+    { id: 4, image: img4, name: "Goldlake Glitterfish", color: "O" },
+    { id: 5, image: img5, name: "Oglodi Trail Jerky", color: "R" },
+];
+
+  const addItem = (candy, image, listIndex, side) => {
+    const color = candies[candy - 1]["color"];
+    console.log("Calling addItem")
+    switch(`${side}${listIndex + 1}`) {
+      case 'left1':
+        if(left1.length <= 9){
+          setLeft1(prev => prev === "" ? color : `${prev}, ${color}`);
+        }
+        break;
+      case 'left2':
+        if(left2.length <= 9){
+          setLeft2(prev => prev === "" ? color : `${prev}, ${color}`);
+        }
+        break;
+      case 'left3':
+        if(left3.length <= 9){
+          setLeft3(prev => prev === "" ? color : `${prev}, ${color}`);
+        }
+        break;
+      case 'left4':
+        if(left4.length <= 9){
+          setLeft4(prev => prev === "" ? color : `${prev}, ${color}`);
+        }
+        break;
+      case 'right1':
+        if(right1.length < 4){
+          setRight1(prev => [...prev, color]);
+        }
+        break;
+      case 'right2':
+        if(right2.length < 4){
+          setRight2(prev => [...prev, color]);
+        }
+        break;
+      case 'right3':
+        if(right3.length < 4){
+          setRight3(prev => [...prev, color]);
+        }
+        break;
+      case 'right4':
+        if(right4.length < 4){
+          setRight4(prev => [...prev, color]);
+        }
+        break;
+      default:
+        console.log('Unknown variable:', `${side}${listIndex + 1}`);
+    }
+   
     setExchangeInputs(prevLists => {
       const newLists = [...prevLists];
       const newItem = { ...newLists[listIndex] };
@@ -60,7 +114,7 @@ const StepFour = () => {
     };
 
     if (candyImages[key]) {
-      event.preventDefault(); // Prevent the default key press behavior
+      event.preventDefault();
 
       switch (currentFocus) {
         case 'mainInput':
@@ -80,52 +134,28 @@ const StepFour = () => {
           if (match) {
             const index = parseInt(match[1], 10);
             const side = match[2].toLowerCase(); // 'left' or 'right'
-            addItem(candyImages[key], index, side);
+            addItem(key, candyImages[key], index, side);
           }
           break;
       }
     }
   };
-
-  const handleClickOutside = (event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setIsMenuOpen(false);
-    }
-  };
-
-  const handleKeyPress = (event) => {
-    let active = document.activeElement;
-    if (active.tagName === "INPUT") {
-      const listIndex = parseInt(active.getAttribute('data-list-index'));
-      const isInput = active.getAttribute('data-input') === 'true';
-      const itemName = event.key;
-      const candy = candies.find(candy => candy.name.toLowerCase().startsWith(itemName.toLowerCase()));
-      if (candy) {
-        addItem(candy.image, listIndex, isInput ? 'input' : 'output');
-      }
-    }
-  };
+  useEffect(() => {
+    console.log("Updated left1:", left1);
+    console.log("Updated left2:", left2);
+    console.log("Updated left3:", left3);
+    console.log("Updated left4:", left4);
+    console.log("Updated right1:", right1);
+    console.log("Updated right2:", right2);
+    console.log("Updated right3:", right3);
+    console.log("Updated right4:", right4);
+  }, [left1, left2, left3, left4, right1, right2, right3, right4]);
 
   useEffect(() => {
-    if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isMenuOpen]);
 
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress);
-    };
-  },);
+    
+    
 
-
-  useEffect(() => {
     setExchangeInputs(recipes || [
       { id: 1, left: "", right: "" },
       { id: 2, left: "", right: "" },
@@ -134,13 +164,48 @@ const StepFour = () => {
     ]);
   }, [recipes]);
 
+  useEffect(() => {
+    if (recipes && recipes.length === 4) {
+      setExchangeInputs(recipes);
+    }
+  
+    if (recipesLetters && recipesLetters.length === 4) {
+      setLeft1(recipesLetters[0].left || "");
+      setLeft2(recipesLetters[1].left || "");
+      setLeft3(recipesLetters[2].left || "");
+      setLeft4(recipesLetters[3].left || "");
+      setRight1(recipesLetters[0].right || "");
+      setRight2(recipesLetters[1].right || "");
+      setRight3(recipesLetters[2].right || "");
+      setRight4(recipesLetters[3].right || "");
+    }
+  }, [recipes, recipesLetters]);
+
   const goToNext = () => {
-    setRecipes(exchangeInputs)
+    let recipe_letters = [
+      { id: 1, left: left1, right: right1 },
+      { id: 2, left: left2, right: right2 },
+      { id: 3, left: left3, right: right3 },
+      { id: 4, left: left4, right: right4 },
+    ]
+
+    setRecipesLetters(recipe_letters);
+    setRecipes(exchangeInputs);
+    console.log("Recipe Letters", recipe_letters);
+  
     navigate('/step5');
   };
-
   const goToPrevious = () => {
+    let recipe_letters = [
+      { id: 1, left: left1, right: right1 },
+      { id: 2, left: left2, right: right2 },
+      { id: 3, left: left3, right: right3 },
+      { id: 4, left: left4, right: right4 },
+    ]
+
+    setRecipesLetters(recipe_letters)
     setRecipes(exchangeInputs)
+    console.log("Recipe Letters", recipesLetters)
     navigate('/step3');
   };
 
@@ -199,7 +264,7 @@ const StepFour = () => {
         </div>
 
         <div className="of-4-parent">
-          <div className="of-4">4 of 4</div>
+          <div className="of-4">4 of 5</div>
           <div className="previous-wrapper">
             <button className="previous-button" onClick={goToPrevious}>Previous</button>
           </div>

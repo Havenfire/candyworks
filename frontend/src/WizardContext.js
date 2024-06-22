@@ -15,6 +15,13 @@ export const WizardProvider = ({ children }) => {
     { id: 4, left: "", right: "" },
   ]);
 
+  const [recipesLetters, setRecipesLetters] = useState([
+    { id: 1, left: "", right: [] },
+    { id: 2, left: "", right: [] },
+    { id: 3, left: "", right: [] },
+    { id: 4, left: "", right: [] },
+  ]);
+
 
   return (
     <WizardContext.Provider value={{
@@ -26,6 +33,8 @@ export const WizardProvider = ({ children }) => {
       setTargetCandies,
       recipes,
       setRecipes,
+      recipesLetters,
+      setRecipesLetters,
     }}>
       {children}
     </WizardContext.Provider>

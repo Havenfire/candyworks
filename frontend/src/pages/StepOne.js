@@ -16,7 +16,7 @@ const StepOne = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const menuRef = useRef(null);
-  const { startingCandies, setStartingCandies } = useContext(WizardContext);
+  const { targetCandies, setTargetCandies } = useContext(WizardContext);
 
   const candies = [
     { id: 1, image: img1, name: "Midgate Mudball" },
@@ -79,18 +79,22 @@ const StepOne = () => {
 
 
   useEffect(() => {
-    setSelectedItems(startingCandies || []);
-  }, [startingCandies]);
+    setSelectedItems(targetCandies || []);
+  }, [targetCandies]);
   
 
   const goToNext = () => {
-    setStartingCandies(selectedItems);
+    setTargetCandies(selectedItems);
     navigate('/step2');
   };
 
   const goToPrevious = () => {
-    setStartingCandies(selectedItems);
+    setTargetCandies(selectedItems);
     navigate('/step1');
+  };
+
+  const goToOldSite = () => {
+    navigate('/oldsite');
   };
 
   return (
@@ -164,7 +168,10 @@ const StepOne = () => {
         </div>
 
         <div className="of-4-parent">
-          <div className="of-4">1 of 4</div>
+          <div className="of-4">1 of 5</div>
+          <div className="previous-wrapper">
+            <button className="previous-button" onClick={goToOldSite}>Old Site</button>
+          </div>
           <div className="previous-wrapper">
             <button className="previous-button" onClick={goToPrevious}>Previous</button>
           </div>

@@ -85,7 +85,7 @@ const StepTwo = () => {
         </div>
 
         <div className="of-4-parent">
-          <div className="of-4">2 of 4</div>
+          <div className="of-4">2 of 5</div>
           <div className="previous-wrapper">
             <button className="previous-button" onClick={goToPrevious}>Previous</button>
           </div>

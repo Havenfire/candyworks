@@ -13,25 +13,18 @@ const StepFive = () => {
     const navigate = useNavigate();
     const menuRef = useRef(null);
     const contextOutput = useContext(WizardContext);
-    let recipes = contextOutput.recipes;
+    let recipes = contextOutput.recipesLetters;
     let startingCandies = contextOutput.startingCandies;
     let targetCandies = contextOutput.targetCandies;
     let inventoryLimit = contextOutput.inventoryLimit;
     const [bfsResult, setBfsResult] = useState({ found: false, allPaths: [], maxPath: [] });
 
-
-    // for (let i = 0; i < recipes.length; i++) {
-    //     console.log(recipes)
-    //     recipes[i] = recipes[i]
-    // }
-
-
     const candies = [
-        { id: 1, image: img1, name: "Midgate Mudball" },
-        { id: 2, image: img2, name: "Shade Shore Sugarworms" },
-        { id: 3, image: img3, name: "Skywrath Squawksicles" },
-        { id: 4, image: img4, name: "Goldlake Glitterfish" },
-        { id: 5, image: img5, name: "Oglodi Trail Jerky" },
+        { id: 1, image: img1, name: "Midgate Mudball", color: "B"},
+        { id: 2, image: img2, name: "Shade Shore Sugarworms", color: "P"},
+        { id: 3, image: img3, name: "Skywrath Squawksicles", color: "Y" },
+        { id: 4, image: img4, name: "Goldlake Glitterfish", color: "O" },
+        { id: 5, image: img5, name: "Oglodi Trail Jerky", color: "R" },
     ];
     const simpleExchange = {
         "B, B, B": ["P", "Y", "O", "R"],
@@ -43,20 +36,42 @@ const StepFive = () => {
 
     const submitForm = () => {
 
-        console.log("Starting Candy", startingCandies)
-        console.log("Target Candies", targetCandies)
-        console.log("Inventory Limit"< inventoryLimit)
-        console.log("Recipe", recipes)
+        let input_startingC = []
+        let input_targetC = []
 
+        for(let i = 0; i < startingCandies.length; i++){
+            input_startingC.push(candies[startingCandies[i]["id"] - 1]["color"])
+        }
+
+        for(let i = 0; i < targetCandies.length; i++){
+            input_targetC.push(candies[targetCandies[i]["id"] - 1]["color"])
+        }
+
+
+        let input_recipes = {};
+        input_recipes[recipes[0]["left"]] = recipes[0]["right"];
+        input_recipes[recipes[1]["left"]] = recipes[1]["right"];
+        input_recipes[recipes[2]["left"]] = recipes[2]["right"];
+        input_recipes[recipes[3]["left"]] = recipes[3]["right"];
         
-
-        let [found, allPaths, maxPath] = bfs(startingCandies, recipes, simpleExchange, targetCandies, inventoryLimit, 5);
+        let [found, allPaths, maxPath] = bfs(input_startingC, input_recipes, simpleExchange, input_targetC, inventoryLimit, 5);
         setBfsResult({ found, allPaths, maxPath });
     };
 
     const goToPrevious = () => {
         navigate('/step4');
     };
+
+    const formatNestedArray = (nestedArray) => {
+        console.log(nestedArray)
+        if(nestedArray === undefined){
+          return ""
+        }
+    
+        return nestedArray.map(group =>
+          group.map(subgroup => subgroup.join('')).join(' ')
+        ).join(', ');
+      };
 
     return (
         <div className="wizard-main-box">
@@ -84,7 +99,7 @@ const StepFive = () => {
                                 {bfsResult.found ? (
                                     <div>
                                         <h2>Results Found:</h2>
-                                        <pre>{JSON.stringify(bfsResult.maxPath, null, 2)}</pre>
+                                        <pre>{formatNestedArray(bfsResult.maxPath, null, 2)}</pre>
                                     </div>
                                 ) : (
                                     <p>No paths found matching the criteria.</p>
