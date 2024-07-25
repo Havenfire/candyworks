@@ -346,9 +346,9 @@
   border: none;
   padding: 5px;
   font-size: 16px;
-  cursor: pointer;
   outline: none;
   position: relative;
   font-family: 'radiance';
+  user-select: none;
 
 }

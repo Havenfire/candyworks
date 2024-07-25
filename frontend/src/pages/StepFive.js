@@ -18,7 +18,7 @@ const StepFive = () => {
     let startingCandies = contextOutput.startingCandies;
     let targetCandies = contextOutput.targetCandies;
     let inventoryLimit = contextOutput.inventoryLimit;
-    const [bfsResult, setBfsResult] = useState({ found: false, allPaths: [], maxPath: [] });
+    const [bfsResult, setBfsResult] = useState({ status: 'unknown', allPaths: [], maxPath: [] });
 
     const candies = [
         { id: 1, image: img1, name: "Midgate Mudball", color: "B" },
@@ -37,18 +37,16 @@ const StepFive = () => {
     };
 
     const submitForm = () => {
-
-        let input_startingC = []
-        let input_targetC = []
+        let input_startingC = [];
+        let input_targetC = [];
 
         for (let i = 0; i < startingCandies.length; i++) {
-            input_startingC.push(candies[startingCandies[i]["id"] - 1]["color"])
+            input_startingC.push(candies[startingCandies[i]["id"] - 1]["color"]);
         }
 
         for (let i = 0; i < targetCandies.length; i++) {
-            input_targetC.push(candies[targetCandies[i]["id"] - 1]["color"])
+            input_targetC.push(candies[targetCandies[i]["id"] - 1]["color"]);
         }
-
 
         let input_recipes = {};
         input_recipes[recipesLetters[0]["left"]] = recipesLetters[0]["right"];
@@ -57,7 +55,7 @@ const StepFive = () => {
         input_recipes[recipesLetters[3]["left"]] = recipesLetters[3]["right"];
 
         let [found, allPaths, maxPath] = bfs(input_startingC, input_recipes, simpleExchange, input_targetC, inventoryLimit, 5);
-        setBfsResult({ found, allPaths, maxPath });
+        setBfsResult({ status: found ? 'true' : 'false', allPaths, maxPath });
     };
 
     const goToPrevious = () => {
@@ -65,7 +63,6 @@ const StepFive = () => {
     };
 
     const formatNestedArray = (nestedArray) => {
-        console.log(nestedArray);
         if (nestedArray === undefined) {
             return null; // Return null for React to render nothing
         }
@@ -83,7 +80,6 @@ const StepFive = () => {
             </div>
         ));
     };
-    
 
     return (
         <div className="wizard-main-box">
@@ -95,29 +91,30 @@ const StepFive = () => {
             <div className="frame-parent">
                 <div className="step-label">
                     <div style={{ color: COLORS.red, fontSize: 16 }} className="the-crownfall-container">Results</div>
-                    <div style={{ fontSize: 32 }} className="what-candies-do"> Algorithm Output</div>
+                    <div style={{ fontSize: 32 }} className="what-candies-do">Algorithm Output</div>
                 </div>
                 <div className="click-the-to-select-a-candy-parent">
                     <div style={{ color: COLORS.grey, fontSize: 14 }} className="info-text">
                         Click Submit and wait for the algorithm to load.
                     </div>
-
                 </div>
                 <div className="frame-wrapper">
                     <div className="selected-items-wrapper">
-
                         <div className="frame-container" ref={menuRef}>
                             <div className="results-display">
-                                {bfsResult.found ? (
+                                {bfsResult.status === 'unknown' && (
+                                    <p>Click submit to see the results.</p>
+                                )}
+                                {bfsResult.status === 'true' && (
                                     <div>
                                         <h2>Results Found:</h2>
                                         <pre>{formatNestedArray(bfsResult.maxPath, null, 2)}</pre>
                                     </div>
-                                ) : (
-                                    <p>No paths found matching the criteria.</p>
+                                )}
+                                {bfsResult.status === 'false' && (
+                                    <p>No paths found matching the criteria. Wait for new candies or recipes.</p>
                                 )}
                             </div>
-
                         </div>
                     </div>
                 </div>
