@@ -85,7 +85,7 @@ const StepOne = () => {
 
   const goToNext = () => {
     setTargetCandies(selectedItems);
-    navigate('/step2');
+    navigate('/step3');
   };
 
   const goToPrevious = () => {

@@ -91,7 +91,7 @@ const StepThree = () => {
 
   const goToPrevious = () => {
     setStartingCandies(selectedItems);
-    navigate('/step2');
+    navigate('/step1');
   };
 
   return (

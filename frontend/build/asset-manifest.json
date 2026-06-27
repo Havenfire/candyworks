@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.dd42e42c.css",
-    "main.js": "/static/js/main.6dce160c.js",
+    "main.js": "/static/js/main.775e76dd.js",
     "static/js/453.2a82e7ac.chunk.js": "/static/js/453.2a82e7ac.chunk.js",
     "static/media/Reaver-Bold.ttf": "/static/media/Reaver-Bold.6d5147dd5d12a474cae8.ttf",
     "static/media/radiance.ttf": "/static/media/radiance.73c7826470c1eaebb114.ttf",
     "index.html": "/index.html",
     "main.dd42e42c.css.map": "/static/css/main.dd42e42c.css.map",
-    "main.6dce160c.js.map": "/static/js/main.6dce160c.js.map",
+    "main.775e76dd.js.map": "/static/js/main.775e76dd.js.map",
     "453.2a82e7ac.chunk.js.map": "/static/js/453.2a82e7ac.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dd42e42c.css",
-    "static/js/main.6dce160c.js"
+    "static/js/main.775e76dd.js"
   ]
 }
