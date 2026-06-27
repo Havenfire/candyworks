@@ -100,7 +100,7 @@ const StepOne = () => {
   return (
     <div className="wizard-main-box">
       <div className="the-crownfall-container">
-        <p style={{ color: COLORS.red, fontSize: 24 }} className="the-crownfall">— The Crownfall —</p>
+        <p style={{ color: COLORS.red, fontSize: 24 }} className="the-crownfall">— The Dark Carnival —</p>
         <p style={{ fontSize: 56 }} className="candyworks-calculator">Candyworks Calculator</p>
       </div>
 
