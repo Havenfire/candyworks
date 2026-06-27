@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './Frontpage.css';
+import { EVENT_NAME } from './eventConfig';
 
 import img1 from './images/Pinelyn_Pistachio_Nuts.png';
 import img2 from './images/Smoke_Harbor_Sweetmeats.png';
@@ -172,7 +173,7 @@ function Frontpage() {
   return (
     <div className="OLDCSS-frontpage-container">
       <div className="OLDCSS-header">
-        <h1>The Crownfall Candyworks</h1>
+        <h1>{EVENT_NAME} Candyworks</h1>
       </div>
       <div className="OLDCSS-content">
         <div className='central-content-top'>

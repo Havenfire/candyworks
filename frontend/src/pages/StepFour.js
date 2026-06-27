@@ -4,7 +4,9 @@ import { WizardContext } from '../WizardContext';
 
 import './StepFour.css';
 import '../global.css';
+import { EVENT_NAME } from '../eventConfig';
 import { COLORS } from '../values/colors';
+import { removeLastCandyMarkup } from './stepFourUtils';
 import img1 from '../images/Pinelyn_Pistachio_Nuts.png';
 import img2 from '../images/Smoke_Harbor_Sweetmeats.png';
 import img3 from '../images/Joerlak_Jawbreakers.png';
@@ -113,6 +115,40 @@ const StepFour = () => {
       '5': img5
     };
 
+    if (key === 'Backspace') {
+      event.preventDefault();
+
+      switch (currentFocus) {
+        case 'mainInput':
+          setInputValue(prev => removeLastCandyMarkup(prev));
+          break;
+        case 'rightInput':
+          setStartingInputValue(prev => removeLastCandyMarkup(prev));
+          break;
+        default: {
+          const match = currentFocus.match(/exchange(\d+)(Left|Right)/);
+          if (match) {
+            const index = parseInt(match[1], 10);
+            const side = match[2].toLowerCase();
+            setExchangeInputs(prevLists =>
+              prevLists.map((item, itemIndex) => {
+                if (itemIndex !== index) {
+                  return item;
+                }
+
+                return {
+                  ...item,
+                  [side]: removeLastCandyMarkup(item[side]),
+                };
+              })
+            );
+          }
+          break;
+        }
+      }
+      return;
+    }
+
     if (candyImages[key]) {
       event.preventDefault();
 
@@ -133,7 +169,7 @@ const StepFour = () => {
           const match = currentFocus.match(/exchange(\d+)(Left|Right)/);
           if (match) {
             const index = parseInt(match[1], 10);
-            const side = match[2].toLowerCase(); // 'left' or 'right'
+            const side = match[2].toLowerCase();
             addItem(key, candyImages[key], index, side);
           }
           break;
@@ -212,7 +248,7 @@ const StepFour = () => {
   return (
     <div className="wizard-main-box">
       <div className="the-crownfall-container">
-        <p style={{ color: COLORS.red, fontSize: 24 }} className="the-crownfall">— The Crownfall —</p>
+        <p style={{ color: COLORS.red, fontSize: 24 }} className="the-crownfall">— {EVENT_NAME} —</p>
         <p style={{ fontSize: 56 }} className="candyworks-calculator">Candyworks Calculator</p>
       </div>
 

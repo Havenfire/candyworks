@@ -1,6 +1,7 @@
 import React, { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { WizardContext } from '../WizardContext';
+import { EVENT_NAME } from '../eventConfig';
 import { COLORS } from '../values/colors';
 import img1 from '../images/Pinelyn_Pistachio_Nuts.png';
 import img2 from '../images/Smoke_Harbor_Sweetmeats.png';
@@ -84,7 +85,7 @@ const StepFive = () => {
     return (
         <div className="wizard-main-box">
             <div className="the-crownfall-container">
-                <p style={{ color: COLORS.red, fontSize: 24 }} className="the-crownfall">— The Crownfall —</p>
+                <p style={{ color: COLORS.red, fontSize: 24 }} className="the-crownfall">— {EVENT_NAME} —</p>
                 <p style={{ fontSize: 56 }} className="candyworks-calculator">Candyworks Calculator</p>
             </div>
 

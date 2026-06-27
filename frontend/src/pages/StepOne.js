@@ -5,6 +5,7 @@ import { WizardContext } from '../WizardContext';
 import './StepOne.css';
 import '../global.css';
 import { COLORS } from '../values/colors';
+import { EVENT_NAME } from '../eventConfig';
 import img1 from '../images/Pinelyn_Pistachio_Nuts.png';
 import img2 from '../images/Smoke_Harbor_Sweetmeats.png';
 import img3 from '../images/Joerlak_Jawbreakers.png';
@@ -100,7 +101,7 @@ const StepOne = () => {
   return (
     <div className="wizard-main-box">
       <div className="the-crownfall-container">
-        <p style={{ color: COLORS.red, fontSize: 24 }} className="the-crownfall">— The Dark Carnival —</p>
+        <p style={{ color: COLORS.red, fontSize: 24 }} className="the-crownfall">— {EVENT_NAME} —</p>
         <p style={{ fontSize: 56 }} className="candyworks-calculator">Candyworks Calculator</p>
       </div>
 
