@@ -5,11 +5,11 @@ import { WizardContext } from '../WizardContext';
 import './StepOne.css';
 import '../global.css';
 import { COLORS } from '../values/colors';
-import img1 from '../images/midgate_mudball.png';
-import img2 from '../images/shade_shore_sugarworms.png';
-import img3 from '../images/skywrath_squawksicles.png';
-import img4 from '../images/goldlake_glitterfish.png';
-import img5 from '../images/oglodi_trail_jerky.png';
+import img1 from '../images/Pinelyn_Pistachio_Nuts.png';
+import img2 from '../images/Smoke_Harbor_Sweetmeats.png';
+import img3 from '../images/Joerlak_Jawbreakers.png';
+import img4 from '../images/Blueheart_Breathbolts.png';
+import img5 from '../images/Keen_Confectionary_Coils.png';
 
 const StepThree = () => {
   const navigate = useNavigate();
@@ -20,11 +20,11 @@ const StepThree = () => {
 
   // Create an array of objects representing the candies
   const candies = [
-    { id: 1, image: img1, name: "Midgate Mudball" },
-    { id: 2, image: img2, name: "Shade Shore Sugarworms" },
-    { id: 3, image: img3, name: "Skywrath Squawksicles" },
-    { id: 4, image: img4, name: "Goldlake Glitterfish" },
-    { id: 5, image: img5, name: "Oglodi Trail Jerky" },
+    { id: 1, image: img1, name: "Pinelyn Pistachio Nuts" },
+    { id: 2, image: img2, name: "Smoke Harbor Sweetmeats" },
+    { id: 3, image: img3, name: "Joerlak Jawbreakers" },
+    { id: 4, image: img4, name: "Blueheart Breathbolts" },
+    { id: 5, image: img5, name: "Keen Confectionary Coils" },
   ];
 
   // Sort the candies array by ID

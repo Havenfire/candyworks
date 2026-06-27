@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import './Frontpage.css';
 
-import img1 from './images/midgate_mudball.png';
-import img2 from './images/shade_shore_sugarworms.png';
-import img3 from './images/skywrath_squawksicles.png';
-import img4 from './images/goldlake_glitterfish.png';
-import img5 from './images/oglodi_trail_jerky.png';
+import img1 from './images/Pinelyn_Pistachio_Nuts.png';
+import img2 from './images/Smoke_Harbor_Sweetmeats.png';
+import img3 from './images/Joerlak_Jawbreakers.png';
+import img4 from './images/Blueheart_Breathbolts.png';
+import img5 from './images/Keen_Confectionary_Coils.png';
 import bfs from './bfs.js';
 
 function Frontpage() {

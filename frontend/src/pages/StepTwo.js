@@ -9,33 +9,25 @@ import { COLORS } from '../values/colors';
 
 const StepTwo = () => {
   const navigate = useNavigate();
-  const { inventoryLimit, setInventoryLimit } = useContext(WizardContext); // Corrected to use WizardContext
+  const { inventoryLimit, setInventoryLimit } = useContext(WizardContext);
 
-  const [value, setValue] = useState(20);
+  const [value, setValue] = useState(30);
 
   useEffect(() => {
-    setValue(inventoryLimit || 20);
-  }, [inventoryLimit]);
+    const fixedValue = 30;
+    setValue(inventoryLimit || fixedValue);
+    setInventoryLimit(fixedValue);
 
-  const increment = () => {
-    if (value < 30) {
-      setValue(value + 1);
-    }
-  };
+    const timer = window.setTimeout(() => {
+      navigate('/step3');
+    }, 300);
 
-  const decrement = () => {
-    if (value > 20) {
-      setValue(value - 1);
-    }
-  };
-  const goToNext = () => {
-    setInventoryLimit(value); // Update the context when leaving the page
-    navigate('/step3');
-  };
+    return () => window.clearTimeout(timer);
+  }, [inventoryLimit, navigate, setInventoryLimit]);
 
   const goToPrevious = () => {
-    setInventoryLimit(value); // Update the context when leaving the page
-    navigate('/step1'); // Corrected the route string
+    setInventoryLimit(value);
+    navigate('/step1');
   };
 
   return (
@@ -52,45 +44,21 @@ const StepTwo = () => {
         </div>
         <div className="click-the-to-select-a-candy-parent">
           <div style={{ color: COLORS.grey, fontSize: 14 }} className="info-text">
-            Select how many slots you have unlocked for your candy inventory. (Minimum 20, maximum 30)
+            This year the inventory limit is fixed at 30 slots. You will be moved to the next step automatically.
           </div>
         </div>
         <div className="frame-wrapper">
           <div className="frame-container-row">
-            <div className="big-wrapper">
-              <button
-                className={`adj-button ${value === 20 ? 'faded' : ''}`}
-                onClick={decrement}
-                disabled={value === 20}
-              >
-                -
-              </button>
-            </div>
-            
             <div className="text-wrapper">
-              <input type="text" className="text-box" value={value} defaultValue={20} />
-            </div>  
-
-            <div className="big-wrapper">
-              <button
-                className={`adj-button ${value === 30 ? 'faded' : ''}`}
-                onClick={increment}
-                disabled={value === 30}
-              >
-                +
-              </button>
+              <input type="text" className="text-box" value={value} readOnly />
             </div>
           </div>
-
         </div>
 
         <div className="of-4-parent">
           <div className="of-4">2 of 5</div>
           <div className="previous-wrapper">
             <button className="previous-button" onClick={goToPrevious}>Previous</button>
-          </div>
-          <div className="next-step-wrapper">
-            <button className="next-step-button" onClick={goToNext}>Next Step</button>
           </div>
         </div>
       </div>

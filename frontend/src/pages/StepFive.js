@@ -2,11 +2,11 @@ import React, { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { WizardContext } from '../WizardContext';
 import { COLORS } from '../values/colors';
-import img1 from '../images/midgate_mudball.png';
-import img2 from '../images/shade_shore_sugarworms.png';
-import img3 from '../images/skywrath_squawksicles.png';
-import img4 from '../images/goldlake_glitterfish.png';
-import img5 from '../images/oglodi_trail_jerky.png';
+import img1 from '../images/Pinelyn_Pistachio_Nuts.png';
+import img2 from '../images/Smoke_Harbor_Sweetmeats.png';
+import img3 from '../images/Joerlak_Jawbreakers.png';
+import img4 from '../images/Blueheart_Breathbolts.png';
+import img5 from '../images/Keen_Confectionary_Coils.png';
 import bfs from '../bfs.js';
 
 const StepFive = () => {
@@ -21,11 +21,11 @@ const StepFive = () => {
     const [bfsResult, setBfsResult] = useState({ status: 'unknown', allPaths: [], maxPath: [] });
 
     const candies = [
-        { id: 1, image: img1, name: "Midgate Mudball", color: "B" },
-        { id: 2, image: img2, name: "Shade Shore Sugarworms", color: "P" },
-        { id: 3, image: img3, name: "Skywrath Squawksicles", color: "Y" },
-        { id: 4, image: img4, name: "Goldlake Glitterfish", color: "O" },
-        { id: 5, image: img5, name: "Oglodi Trail Jerky", color: "R" },
+        { id: 1, image: img1, name: "Pinelyn Pistachio Nuts", color: "B" },
+        { id: 2, image: img2, name: "Smoke Harbor Sweetmeats", color: "P" },
+        { id: 3, image: img3, name: "Joerlak Jawbreakers", color: "Y" },
+        { id: 4, image: img4, name: "Blueheart Breathbolts", color: "O" },
+        { id: 5, image: img5, name: "Keen Confectionary Coils", color: "R" },
     ];
 
     const simpleExchange = {
